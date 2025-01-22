@@ -1,7 +1,8 @@
-VERSION = '0.0.0'
+_G.VERSION = '0.0.0'
 
 function Game:set_globals()
-    self.VERSION = VERSION;
+    self.VERSION = VERSION
+    self.DEBUG = true
 
     -- Instances
     self.I = {
@@ -9,4 +10,4 @@ function Game:set_globals()
     }
 end
 
-G = Game();
+_G.G = Game();
