@@ -8,17 +8,17 @@ Sprite = Node:extend();
 ---@param atlas_path: string
 -- Atlas path, will be loaded to self.atlas on init
 ---@param sprite_size: table
--- Sprite position in atlas, with keys of w, h
+-- Sprite position in atlas, with keys of w, h, p
 ---@param sprite_pos: table
--- Sprite position in atlas, with keys of x, y
+-- Sprite position in atlas, with keys of row|1, column|2
 function Sprite:init(T, atlas_path, sprite_size, sprite_pos)
     Node.init(self, { T = T });
 
     self.atlas = love.graphics.newImage(atlas_path)
 
     self.sprite = love.graphics.newQuad(
-        sprite_size.w * sprite_pos,
-        0,
+        sprite_size.w * sprite_pos[2] + sprite_size.p * sprite_pos[2],
+        sprite_size.h * sprite_pos[1] + sprite_size.p * sprite_pos[1],
         sprite_size.w,
         sprite_size.h,
         self.atlas 

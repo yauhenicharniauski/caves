@@ -15,3 +15,11 @@ end
 function love.draw()
     G:draw();
 end
+
+function love.wheelmoved( dx, dy )
+    G:wheelmoved(dx, dy)
+end
+
+function love.keypressed(key, scancode, isrepeat)
+    G:keypressed(key, scancode, isrepeat)
+ end
