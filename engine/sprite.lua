@@ -15,7 +15,6 @@ function Sprite:init(T, atlas_path, sprite_size, sprite_pos)
     Node.init(self, { T = T });
 
     self.atlas = love.graphics.newImage(atlas_path)
-    self.atlas:setFilter("nearest", "nearest") -- Prevent blurring
 
     self.sprite = love.graphics.newQuad(
         sprite_size.w * sprite_pos,
