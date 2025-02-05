@@ -11,21 +11,25 @@ end
 function Game:start_up()
     love.graphics.setDefaultFilter("nearest", "nearest") -- Prevent blurring
 
-    self.cam = gamera.new(0, 0, 10000, 10000)
+    self.cam = gamera.new(0, 0, G.WORLD.WIDTH * G.WORLD.BLOCK_SIZE, G.WORLD.HEIGHT * G.WORLD.BLOCK_SIZE)
 
-    Sprite({ x = 100, y = 100, w = 100, h = 100}, G.TEXTURES.DIRT.ATLAS, G.TEXTURES.DIRT.SPRITE_SIZE, G.TEXTURES.DIRT.VIEWS.DIRT_T)
-    Sprite({ x = 200, y = 100, w = 100, h = 100}, G.TEXTURES.DIRT.ATLAS, G.TEXTURES.DIRT.SPRITE_SIZE, G.TEXTURES.DIRT.VIEWS.DIRT_R)
-    Sprite({ x = 400, y = 100, w = 100, h = 100}, G.TEXTURES.DIRT.ATLAS, G.TEXTURES.DIRT.SPRITE_SIZE, G.TEXTURES.DIRT.VIEWS.DIRT_L)
+    -- for x = 0, G.WORLD.WIDTH do
+    Block(1, 1, G.ENUMS.BLOCKS.DIRT) 
+    -- end
 
-    Sprite({ x = 100, y = 200, w = 100, h = 100}, G.TEXTURES.DIRT.ATLAS, G.TEXTURES.DIRT.SPRITE_SIZE, G.TEXTURES.DIRT.VIEWS.DIRT)
-    Sprite({ x = 200, y = 200, w = 100, h = 100}, G.TEXTURES.DIRT.ATLAS, G.TEXTURES.DIRT.SPRITE_SIZE, G.TEXTURES.DIRT.VIEWS.DIRT_TR)
-    Sprite({ x = 300, y = 200, w = 100, h = 100}, G.TEXTURES.DIRT.ATLAS, G.TEXTURES.DIRT.SPRITE_SIZE, G.TEXTURES.DIRT.VIEWS.DIRT_T)
-    Sprite({ x = 400, y = 200, w = 100, h = 100}, G.TEXTURES.DIRT.ATLAS, G.TEXTURES.DIRT.SPRITE_SIZE, G.TEXTURES.DIRT.VIEWS.DIRT_TL)
+    -- Sprite({ x = 100, y = 100, w = 100, h = 100}, G.TEXTURES.DIRT.ATLAS, G.TEXTURES.DIRT.SPRITE_SIZE, 1)
+    -- Sprite({ x = 200, y = 100, w = 100, h = 100}, G.TEXTURES.DIRT.ATLAS, G.TEXTURES.DIRT.SPRITE_SIZE, 4)
+    -- Sprite({ x = 400, y = 100, w = 100, h = 100}, G.TEXTURES.DIRT.ATLAS, G.TEXTURES.DIRT.SPRITE_SIZE, 3)
 
-    Sprite({ x = 100, y = 300, w = 100, h = 100}, G.TEXTURES.DIRT.ATLAS, G.TEXTURES.DIRT.SPRITE_SIZE, G.TEXTURES.DIRT.VIEWS.DIRT)
-    Sprite({ x = 200, y = 300, w = 100, h = 100}, G.TEXTURES.DIRT.ATLAS, G.TEXTURES.DIRT.SPRITE_SIZE, G.TEXTURES.DIRT.VIEWS.DIRT)
-    Sprite({ x = 300, y = 300, w = 100, h = 100}, G.TEXTURES.DIRT.ATLAS, G.TEXTURES.DIRT.SPRITE_SIZE, G.TEXTURES.DIRT.VIEWS.DIRT)
-    Sprite({ x = 400, y = 300, w = 100, h = 100}, G.TEXTURES.DIRT.ATLAS, G.TEXTURES.DIRT.SPRITE_SIZE, G.TEXTURES.DIRT.VIEWS.DIRT)
+    -- Sprite({ x = 100, y = 200, w = 100, h = 100}, G.TEXTURES.DIRT.ATLAS, G.TEXTURES.DIRT.SPRITE_SIZE, 2)
+    -- Sprite({ x = 200, y = 200, w = 100, h = 100}, G.TEXTURES.DIRT.ATLAS, G.TEXTURES.DIRT.SPRITE_SIZE, 5)
+    -- Sprite({ x = 300, y = 200, w = 100, h = 100}, G.TEXTURES.DIRT.ATLAS, G.TEXTURES.DIRT.SPRITE_SIZE, 1)
+    -- Sprite({ x = 400, y = 200, w = 100, h = 100}, G.TEXTURES.DIRT.ATLAS, G.TEXTURES.DIRT.SPRITE_SIZE, 6)
+
+    -- Sprite({ x = 100, y = 300, w = 100, h = 100}, G.TEXTURES.DIRT.ATLAS, G.TEXTURES.DIRT.SPRITE_SIZE, 2)
+    -- Sprite({ x = 200, y = 300, w = 100, h = 100}, G.TEXTURES.DIRT.ATLAS, G.TEXTURES.DIRT.SPRITE_SIZE, 2)
+    -- Sprite({ x = 300, y = 300, w = 100, h = 100}, G.TEXTURES.DIRT.ATLAS, G.TEXTURES.DIRT.SPRITE_SIZE, 2)
+    -- Sprite({ x = 400, y = 300, w = 100, h = 100}, G.TEXTURES.DIRT.ATLAS, G.TEXTURES.DIRT.SPRITE_SIZE, 2)
 end
 
 function Game:update(dt)
@@ -41,6 +45,10 @@ function Game:draw()
         end
     
         for _, v in pairs(G.I.SPRITE) do
+            v:draw();
+        end 
+
+        for _, v in pairs(G.I.BLOCK) do
             v:draw();
         end 
     end)
@@ -72,7 +80,7 @@ function Game:keypressed(key, scancode, isrepeat)
     end
 
     if key == "]" or key == "[" then
-        local dstep = key == "]" and 100 or -100;
+        local dstep = key == "]" and 75 or -75;
         print('CAM STEP WAS CHANGED: ', G.CAM.step + dstep);
         G.CAM.step = G.CAM.step + dstep;
     end
