@@ -12,7 +12,7 @@ Node = Object:extend();
 function Node:init(args)
     args = args or {}
     args.T = args.T or {}
-
+    
     self.T = {
         x = args.T.x or args.T[1] or 50,
         y = args.T.y or args.T[2] or 50,
@@ -35,15 +35,18 @@ end
 -- Used only for debugging
 function Node:draw_boundingrect()
     if G.DEBUG then
-        local transform = self.T
+        local transform = self.T;
 
-        love.graphics.push()
+        love.graphics.push();
+
         love.graphics.translate(transform.x + transform.w * 0.5, transform.y + transform.h * 0.5);
-        love.graphics.rotate(transform.r)
+        love.graphics.rotate(transform.r);
         love.graphics.translate(-transform.w * 0.5, -transform.h * 0.5);
-        love.graphics.setColor(1, 0, 0, 1)
-        love.graphics.rectangle('line', 0, 0, transform.w, transform.y)
-        love.graphics.pop()
+        love.graphics.setColor(1, 0, 0, 1);
+        love.graphics.rectangle('line', 0, 0, transform.w, transform.h);
+
+        love.graphics.setColor(1, 1, 1, 1);
+        love.graphics.pop();
     end
 end
 

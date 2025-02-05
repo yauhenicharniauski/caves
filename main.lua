@@ -1,5 +1,6 @@
 require "engine/object"
 require "engine/node"
+require "engine/sprite"
 require "game"
 require "globals"
 

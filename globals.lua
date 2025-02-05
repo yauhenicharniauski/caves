@@ -6,7 +6,22 @@ function Game:set_globals()
 
     -- Instances
     self.I = {
-        NODE = {}
+        NODE = {},
+        SPRITE = {}
+    }
+
+    self.TEXTURES = {
+        DIRT = {
+            ATLAS = "textures/dirt/dirt.png",
+            SPRITE_SIZE = {
+                w = 8,
+                h = 8
+            },
+            VIEWS = {
+                DIRT_T = 0,
+                DIRT = 1
+            }
+        }
     }
 end
 

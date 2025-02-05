@@ -7,7 +7,22 @@ function Game:init()
 end
 
 function Game:start_up()
-    Node({ T = { x = 100, y = 100, w = 100, h = 100 } });
+    Sprite({ x = 100, y = 100, w = 100, h = 100}, G.TEXTURES.DIRT.ATLAS, G.TEXTURES.DIRT.SPRITE_SIZE, G.TEXTURES.DIRT.VIEWS.DIRT_T);
+    Sprite({ x = 200, y = 100, w = 100, h = 100}, G.TEXTURES.DIRT.ATLAS, G.TEXTURES.DIRT.SPRITE_SIZE, G.TEXTURES.DIRT.VIEWS.DIRT_T);
+    Sprite({ x = 300, y = 100, w = 100, h = 100}, G.TEXTURES.DIRT.ATLAS, G.TEXTURES.DIRT.SPRITE_SIZE, G.TEXTURES.DIRT.VIEWS.DIRT_T);
+    Sprite({ x = 400, y = 100, w = 100, h = 100}, G.TEXTURES.DIRT.ATLAS, G.TEXTURES.DIRT.SPRITE_SIZE, G.TEXTURES.DIRT.VIEWS.DIRT_T);
+
+    Sprite({ x = 100, y = 200, w = 100, h = 100}, G.TEXTURES.DIRT.ATLAS, G.TEXTURES.DIRT.SPRITE_SIZE, G.TEXTURES.DIRT.VIEWS.DIRT);
+    Sprite({ x = 200, y = 200, w = 100, h = 100}, G.TEXTURES.DIRT.ATLAS, G.TEXTURES.DIRT.SPRITE_SIZE, G.TEXTURES.DIRT.VIEWS.DIRT);
+    Sprite({ x = 300, y = 200, w = 100, h = 100}, G.TEXTURES.DIRT.ATLAS, G.TEXTURES.DIRT.SPRITE_SIZE, G.TEXTURES.DIRT.VIEWS.DIRT);
+    Sprite({ x = 400, y = 200, w = 100, h = 100}, G.TEXTURES.DIRT.ATLAS, G.TEXTURES.DIRT.SPRITE_SIZE, G.TEXTURES.DIRT.VIEWS.DIRT);
+
+    Sprite({ x = 100, y = 300, w = 100, h = 100}, G.TEXTURES.DIRT.ATLAS, G.TEXTURES.DIRT.SPRITE_SIZE, G.TEXTURES.DIRT.VIEWS.DIRT);
+    Sprite({ x = 200, y = 300, w = 100, h = 100}, G.TEXTURES.DIRT.ATLAS, G.TEXTURES.DIRT.SPRITE_SIZE, G.TEXTURES.DIRT.VIEWS.DIRT);
+    Sprite({ x = 300, y = 300, w = 100, h = 100}, G.TEXTURES.DIRT.ATLAS, G.TEXTURES.DIRT.SPRITE_SIZE, G.TEXTURES.DIRT.VIEWS.DIRT);
+    Sprite({ x = 400, y = 300, w = 100, h = 100}, G.TEXTURES.DIRT.ATLAS, G.TEXTURES.DIRT.SPRITE_SIZE, G.TEXTURES.DIRT.VIEWS.DIRT);
+
+    print(#G.I.NODE);
 end
 
 function Game:update(dt)
@@ -18,6 +33,10 @@ function Game:draw()
     self:draw_background();
 
     for _, v in pairs(G.I.NODE) do
+        v:draw();
+    end
+
+    for _, v in pairs(G.I.SPRITE) do
         v:draw();
     end
 end
