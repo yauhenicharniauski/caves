@@ -1,10 +1,10 @@
 ---@class Block
 Block = Sprite:extend();
 
-function Block:init(x, y, block)
-    local texture = G.TEXTURES[block];
+function Block:init(x, y, block, view)
+    self.texture = G.TEXTURES[block];
 
-    if(texture) then
+    if(self.texture) then
         Sprite.init(
             self, 
             { 
@@ -13,9 +13,9 @@ function Block:init(x, y, block)
                 w = G.WORLD.BLOCK_SIZE,
                 h = G.WORLD.BLOCK_SIZE
             },
-            texture.ATLAS,
-            texture.SPRITE_SIZE,
-            texture.VIEWS[2]
+            self.texture.ATLAS,
+            self.texture.SPRITE_SIZE,
+            self.texture.VIEWS[view]
         )
     end
 
@@ -37,4 +37,10 @@ function Block:remove()
     end
 
     Sprite.remove(self);
+end
+
+function Block:updateView(view)
+    if self.texture.VIEWS[view] then
+        Sprite.updateSprite(self, self.texture.VIEWS[view])
+    end
 end

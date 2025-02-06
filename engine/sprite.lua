@@ -27,6 +27,7 @@ function Sprite:init(T, atlas_path, sprite_size, sprite_pos)
     self.sprite_meta = {
         w = sprite_size.w,
         h = sprite_size.h,
+        p = sprite_size.p,
     }
 
     if getmetatable(self) == Sprite then
@@ -54,4 +55,14 @@ function Sprite:remove()
     end
 
     Node.remove(self);
+end
+
+function Sprite:updateSprite(sprite_pos)
+    self.sprite = love.graphics.newQuad(
+        self.sprite_meta.w * sprite_pos[2] + self.sprite_meta.p * sprite_pos[2],
+        self.sprite_meta.h * sprite_pos[1] + self.sprite_meta.p * sprite_pos[1],
+        self.sprite_meta.w,
+        self.sprite_meta.h,
+        self.atlas 
+    );
 end

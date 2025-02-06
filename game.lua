@@ -14,7 +14,8 @@ function Game:start_up()
     self.cam = gamera.new(0, 0, G.WORLD.WIDTH * G.WORLD.BLOCK_SIZE, G.WORLD.HEIGHT * G.WORLD.BLOCK_SIZE)
 
     -- for x = 0, G.WORLD.WIDTH do
-    Block(1, 1, G.ENUMS.BLOCKS.DIRT) 
+    local b = Block(1, 1, G.ENUMS.BLOCKS.DIRT, 1) 
+    Block.updateView(b, 9);
     -- end
 
     -- Sprite({ x = 100, y = 100, w = 100, h = 100}, G.TEXTURES.DIRT.ATLAS, G.TEXTURES.DIRT.SPRITE_SIZE, 1)
