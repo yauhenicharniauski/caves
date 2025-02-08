@@ -1,3 +1,4 @@
+---@diagnostic disable: redundant-parameter
 --||--
 --This Object implementation was taken from SNKRX (MIT license). Slightly modified, this is a very simple OOP base
 

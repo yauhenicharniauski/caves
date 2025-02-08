@@ -8,7 +8,7 @@ function Game:set_globals()
     self.I = {
         NODE = {},
         SPRITE = {},
-        BLOCK = {}
+        BLOCK = {},
     }
 
     self.ENUMS = {
@@ -35,6 +35,17 @@ function Game:set_globals()
                 { 1, 2 },
                 { 1, 3 }
             }
+        },
+        PLAYER = {
+            ATLAS = "textures/player/player.png",
+            SPRITE_SIZE = {
+                w = 16,
+                h = 32,
+                p = 0
+            },
+            VIEWS = {
+                {0, 0}
+            }
         }
     }
 
@@ -43,9 +54,9 @@ function Game:set_globals()
     }
 
     self.WORLD = {
-        WIDTH = 100, -- blocks
-        HEIGHT = 100, -- blocks
-        BLOCK_SIZE = 50
+        WIDTH = 150, -- blocks
+        HEIGHT = 150, -- blocks
+        BLOCK_SIZE = 25
     }
 end
 

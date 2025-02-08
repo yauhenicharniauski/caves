@@ -13,9 +13,51 @@ function Game:start_up()
 
     self.cam = gamera.new(0, 0, G.WORLD.WIDTH * G.WORLD.BLOCK_SIZE, G.WORLD.HEIGHT * G.WORLD.BLOCK_SIZE)
 
+    self.grid = Grid()
+
+    self.grid:generate();
+
     -- for x = 0, G.WORLD.WIDTH do
-    local b = Block(1, 1, G.ENUMS.BLOCKS.DIRT, 1) 
-    Block.updateView(b, 9);
+    -- Block(2, 2, G.ENUMS.BLOCKS.DIRT, 1)
+    -- Block(2, 3, G.ENUMS.BLOCKS.DIRT, 2)
+    -- Block(3, 2, G.ENUMS.BLOCKS.DIRT, 1)
+    -- Block(4, 2, G.ENUMS.BLOCKS.DIRT, 1)
+    -- Block(4, 3, G.ENUMS.BLOCKS.DIRT, 2)
+    -- Block(4, 4, G.ENUMS.BLOCKS.DIRT, 2)
+    -- Block(4, 5, G.ENUMS.BLOCKS.DIRT, 2)
+    -- Block(3, 5, G.ENUMS.BLOCKS.DIRT, 1)
+    -- Block(3, 6, G.ENUMS.BLOCKS.DIRT, 2)
+    -- Block(3, 8, G.ENUMS.BLOCKS.DIRT, 1)
+
+    -- Block(2 + 5, 2, G.ENUMS.BLOCKS.DIRT, 1)
+    -- Block(2 + 5, 3, G.ENUMS.BLOCKS.DIRT, 2)
+    -- Block(3 + 5, 2, G.ENUMS.BLOCKS.DIRT, 1)
+    -- Block(4 + 5, 2, G.ENUMS.BLOCKS.DIRT, 1)
+    -- Block(4 + 5, 3, G.ENUMS.BLOCKS.DIRT, 2)
+    -- Block(4 + 5, 4, G.ENUMS.BLOCKS.DIRT, 2)
+    -- Block(4 + 5, 5, G.ENUMS.BLOCKS.DIRT, 2)
+    -- Block(3 + 5, 5, G.ENUMS.BLOCKS.DIRT, 1)
+    -- Block(3 + 5, 6, G.ENUMS.BLOCKS.DIRT, 2)
+    -- Block(3 + 5, 8, G.ENUMS.BLOCKS.DIRT, 1)
+
+    -- Block(2 + 10, 2, G.ENUMS.BLOCKS.DIRT, 1)
+    -- Block(2 + 10, 3, G.ENUMS.BLOCKS.DIRT, 2)
+    -- Block(3 + 10, 2, G.ENUMS.BLOCKS.DIRT, 1)
+    -- Block(4 + 10, 2, G.ENUMS.BLOCKS.DIRT, 1)
+    -- Block(4 + 10, 3, G.ENUMS.BLOCKS.DIRT, 2)
+    -- Block(4 + 10, 4, G.ENUMS.BLOCKS.DIRT, 2)
+    -- Block(4 + 10, 5, G.ENUMS.BLOCKS.DIRT, 2)
+    -- Block(3 + 10, 5, G.ENUMS.BLOCKS.DIRT, 1)
+    -- Block(3 + 10, 6, G.ENUMS.BLOCKS.DIRT, 2)
+    -- Block(3 + 10, 8, G.ENUMS.BLOCKS.DIRT, 1)
+    -- Block(3, 2, G.ENUMS.BLOCKS.DIRT, 2)
+    -- Block(4, 2, G.ENUMS.BLOCKS.DIRT, 2)
+
+    -- Block(1, 2, G.ENUMS.BLOCKS.DIRT, 2)
+    -- Block(2, 2, G.ENUMS.BLOCKS.DIRT, 2)
+    -- Block(4, 3, G.ENUMS.BLOCKS.DIRT, 2)
+    -- Block(1, 1, G.ENUMS.BLOCKS.DIRT, 1)
+    -- Block(1, 1, G.ENUMS.BLOCKS.DIRT, 1)
     -- end
 
     -- Sprite({ x = 100, y = 100, w = 100, h = 100}, G.TEXTURES.DIRT.ATLAS, G.TEXTURES.DIRT.SPRITE_SIZE, 1)
@@ -40,6 +82,7 @@ end
 function Game:draw()
     self.cam:draw(function(l, t, w, h)
         self:draw_background(l, t, w, h);
+        self.grid:draw();
 
         for _, v in pairs(G.I.NODE) do
             v:draw();
@@ -103,5 +146,6 @@ function Game:draw_background(l, t, w, h)
     love.graphics.push()
     love.graphics.setColor(0.3, 0.8, 0.8, 1)
     love.graphics.rectangle('fill', l, t, w, h)
+    love.graphics.setColor(1, 1, 1, 1)
     love.graphics.pop()
 end

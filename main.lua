@@ -2,10 +2,13 @@ require "engine/object"
 require "engine/node"
 require "engine/sprite"
 require "components/block"
+require "components/grid"
 require "game"
 require "globals"
 
 function love.load()
+    love.window.setMode(800, 600, { display = 3, fullscreen = true })
+
     G:start_up();
 end
 
