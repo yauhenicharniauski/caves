@@ -32,21 +32,11 @@ function Game:draw()
         self:draw_background(l, t, w, h);
         self.grid:draw();
 
-        for _, v in pairs(G.I.NODE) do
-            v:draw();
+        for _, instances in pairs(G.I) do
+            for _, v in pairs(instances) do
+                v:draw()
+            end
         end
-    
-        for _, v in pairs(G.I.SPRITE) do
-            v:draw();
-        end 
-
-        for _, v in pairs(G.I.BLOCK) do
-            v:draw();
-        end 
-
-        for _, v in pairs(G.I.PLAYER) do
-            v:draw();
-        end 
     end)
 end
 
