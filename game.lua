@@ -15,68 +15,16 @@ function Game:start_up()
 
     self.grid = Grid()
 
-    self.grid:generate();
+    self.grid:generate()
 
-    -- for x = 0, G.WORLD.WIDTH do
-    -- Block(2, 2, G.ENUMS.BLOCKS.DIRT, 1)
-    -- Block(2, 3, G.ENUMS.BLOCKS.DIRT, 2)
-    -- Block(3, 2, G.ENUMS.BLOCKS.DIRT, 1)
-    -- Block(4, 2, G.ENUMS.BLOCKS.DIRT, 1)
-    -- Block(4, 3, G.ENUMS.BLOCKS.DIRT, 2)
-    -- Block(4, 4, G.ENUMS.BLOCKS.DIRT, 2)
-    -- Block(4, 5, G.ENUMS.BLOCKS.DIRT, 2)
-    -- Block(3, 5, G.ENUMS.BLOCKS.DIRT, 1)
-    -- Block(3, 6, G.ENUMS.BLOCKS.DIRT, 2)
+    self.player = Player()
     -- Block(3, 8, G.ENUMS.BLOCKS.DIRT, 1)
-
-    -- Block(2 + 5, 2, G.ENUMS.BLOCKS.DIRT, 1)
-    -- Block(2 + 5, 3, G.ENUMS.BLOCKS.DIRT, 2)
-    -- Block(3 + 5, 2, G.ENUMS.BLOCKS.DIRT, 1)
-    -- Block(4 + 5, 2, G.ENUMS.BLOCKS.DIRT, 1)
-    -- Block(4 + 5, 3, G.ENUMS.BLOCKS.DIRT, 2)
-    -- Block(4 + 5, 4, G.ENUMS.BLOCKS.DIRT, 2)
-    -- Block(4 + 5, 5, G.ENUMS.BLOCKS.DIRT, 2)
-    -- Block(3 + 5, 5, G.ENUMS.BLOCKS.DIRT, 1)
-    -- Block(3 + 5, 6, G.ENUMS.BLOCKS.DIRT, 2)
-    -- Block(3 + 5, 8, G.ENUMS.BLOCKS.DIRT, 1)
-
-    -- Block(2 + 10, 2, G.ENUMS.BLOCKS.DIRT, 1)
-    -- Block(2 + 10, 3, G.ENUMS.BLOCKS.DIRT, 2)
-    -- Block(3 + 10, 2, G.ENUMS.BLOCKS.DIRT, 1)
-    -- Block(4 + 10, 2, G.ENUMS.BLOCKS.DIRT, 1)
-    -- Block(4 + 10, 3, G.ENUMS.BLOCKS.DIRT, 2)
-    -- Block(4 + 10, 4, G.ENUMS.BLOCKS.DIRT, 2)
-    -- Block(4 + 10, 5, G.ENUMS.BLOCKS.DIRT, 2)
-    -- Block(3 + 10, 5, G.ENUMS.BLOCKS.DIRT, 1)
-    -- Block(3 + 10, 6, G.ENUMS.BLOCKS.DIRT, 2)
-    -- Block(3 + 10, 8, G.ENUMS.BLOCKS.DIRT, 1)
-    -- Block(3, 2, G.ENUMS.BLOCKS.DIRT, 2)
-    -- Block(4, 2, G.ENUMS.BLOCKS.DIRT, 2)
-
-    -- Block(1, 2, G.ENUMS.BLOCKS.DIRT, 2)
-    -- Block(2, 2, G.ENUMS.BLOCKS.DIRT, 2)
-    -- Block(4, 3, G.ENUMS.BLOCKS.DIRT, 2)
-    -- Block(1, 1, G.ENUMS.BLOCKS.DIRT, 1)
-    -- Block(1, 1, G.ENUMS.BLOCKS.DIRT, 1)
-    -- end
-
     -- Sprite({ x = 100, y = 100, w = 100, h = 100}, G.TEXTURES.DIRT.ATLAS, G.TEXTURES.DIRT.SPRITE_SIZE, 1)
-    -- Sprite({ x = 200, y = 100, w = 100, h = 100}, G.TEXTURES.DIRT.ATLAS, G.TEXTURES.DIRT.SPRITE_SIZE, 4)
-    -- Sprite({ x = 400, y = 100, w = 100, h = 100}, G.TEXTURES.DIRT.ATLAS, G.TEXTURES.DIRT.SPRITE_SIZE, 3)
-
-    -- Sprite({ x = 100, y = 200, w = 100, h = 100}, G.TEXTURES.DIRT.ATLAS, G.TEXTURES.DIRT.SPRITE_SIZE, 2)
-    -- Sprite({ x = 200, y = 200, w = 100, h = 100}, G.TEXTURES.DIRT.ATLAS, G.TEXTURES.DIRT.SPRITE_SIZE, 5)
-    -- Sprite({ x = 300, y = 200, w = 100, h = 100}, G.TEXTURES.DIRT.ATLAS, G.TEXTURES.DIRT.SPRITE_SIZE, 1)
-    -- Sprite({ x = 400, y = 200, w = 100, h = 100}, G.TEXTURES.DIRT.ATLAS, G.TEXTURES.DIRT.SPRITE_SIZE, 6)
-
-    -- Sprite({ x = 100, y = 300, w = 100, h = 100}, G.TEXTURES.DIRT.ATLAS, G.TEXTURES.DIRT.SPRITE_SIZE, 2)
-    -- Sprite({ x = 200, y = 300, w = 100, h = 100}, G.TEXTURES.DIRT.ATLAS, G.TEXTURES.DIRT.SPRITE_SIZE, 2)
-    -- Sprite({ x = 300, y = 300, w = 100, h = 100}, G.TEXTURES.DIRT.ATLAS, G.TEXTURES.DIRT.SPRITE_SIZE, 2)
-    -- Sprite({ x = 400, y = 300, w = 100, h = 100}, G.TEXTURES.DIRT.ATLAS, G.TEXTURES.DIRT.SPRITE_SIZE, 2)
 end
 
 function Game:update(dt)
-
+    self.player:handleMovement(dt)
+    self.cam:lookAt(self.player)
 end
 
 function Game:draw()
@@ -93,6 +41,10 @@ function Game:draw()
         end 
 
         for _, v in pairs(G.I.BLOCK) do
+            v:draw();
+        end 
+
+        for _, v in pairs(G.I.PLAYER) do
             v:draw();
         end 
     end)

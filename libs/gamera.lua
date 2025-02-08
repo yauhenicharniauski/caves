@@ -6,6 +6,8 @@
 -- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -- Based on YaciCode, from Julien Patte and LuaObject, from Sebastien Rocca-Serra
 
+-- slightly modified for the 'Caves' project needs
+
 local gamera = {}
 
 -- Private attributes and methods
@@ -200,6 +202,10 @@ function gamera:toScreen(x,y)
   x,y = x - self.x, y - self.y
   x,y = cos*x + sin*y, -sin*x + cos*y
   return scale * x + self.w2 + self.l, scale * y + self.h2 + self.t
+end
+
+function gamera:lookAt(node)
+  self:setPosition(node.T.x + node.T.w / 2, node.T.y + node.T.h / 2)
 end
 
 return gamera

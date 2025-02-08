@@ -33,16 +33,18 @@ function Node:init(args)
 end
 
 -- Used only for debugging
-function Node:draw_boundingrect()
+function Node:draw_boundingrect(debugColor)
     if G.DEBUG then
         local transform = self.T;
+
+        local color = debugColor and debugColor or {1, 0, 0, 1}; -- red
 
         love.graphics.push();
 
         love.graphics.translate(transform.x + transform.w * 0.5, transform.y + transform.h * 0.5);
         love.graphics.rotate(transform.r);
         love.graphics.translate(-transform.w * 0.5, -transform.h * 0.5);
-        love.graphics.setColor(1, 0, 0, 1);
+        love.graphics.setColor(color);
         love.graphics.rectangle('line', 0, 0, transform.w, transform.h);
 
         love.graphics.setColor(1, 1, 1, 1);
@@ -50,8 +52,8 @@ function Node:draw_boundingrect()
     end
 end
 
-function Node:draw()
-    self:draw_boundingrect();
+function Node:draw(debugColor)
+    self:draw_boundingrect(debugColor);
 end
 
 function Node:remove()

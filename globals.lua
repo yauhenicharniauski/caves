@@ -9,6 +9,7 @@ function Game:set_globals()
         NODE = {},
         SPRITE = {},
         BLOCK = {},
+        PLAYER = {},
     }
 
     self.ENUMS = {
