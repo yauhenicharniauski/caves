@@ -2,7 +2,11 @@ _G.VERSION = '0.0.0'
 
 function Game:set_globals()
     self.VERSION = VERSION
+    
     self.DEBUG = true
+    self.DEBUG_FEATURES = {
+        GRID = true
+    }
 
     -- Instances
     self.I = {

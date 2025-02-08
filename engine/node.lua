@@ -53,6 +53,8 @@ function Node:draw_boundingrect(debugColor)
 end
 
 function Node:draw(debugColor)
+    if getmetatable(self) == Cell and not G.DEBUG_FEATURES.GRID then return end
+
     self:draw_boundingrect(debugColor);
 end
 
