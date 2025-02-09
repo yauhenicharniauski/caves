@@ -13,7 +13,7 @@ function Block:init(x, y, block, view)
                 w = G.WORLD.BLOCK_PIXEL_SIZE,
                 h = G.WORLD.BLOCK_PIXEL_SIZE
             },
-            self.texture.ATLAS,
+            self.texture.ATLAS_LOADED,
             self.texture.SPRITE_SIZE,
             self.texture.VIEWS[view]
         )

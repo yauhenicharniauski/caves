@@ -24,9 +24,14 @@ function Game:set_globals()
         }
     }
 
+    --------------------------
+    --      TEXTURES        --
+    --------------------------
+
     self.TEXTURES = {
         DIRT = {
             ATLAS = "textures/dirt/dirt.png",
+            ATLAS_LOADED = nil,
             SPRITE_SIZE = {
                 w = 8,
                 h = 8,
@@ -45,6 +50,7 @@ function Game:set_globals()
         },
         PLAYER = {
             ATLAS = "textures/player/player.png",
+            ATLAS_LOADED = nil,
             SPRITE_SIZE = {
                 w = 16,
                 h = 32,
@@ -56,6 +62,15 @@ function Game:set_globals()
         }
     }
 
+    -- load textures
+    for _, v in pairs(self.TEXTURES) do
+        if not v.ATLAS_LOADED then
+            v.ATLAS_LOADED = love.graphics.newImage(v.ATLAS)
+        end
+    end
+
+    --------------------------
+
     self.CAMERA = {
         MIN_ZOOM = 0.6,
         MAX_ZOOM = 1.5,
@@ -64,8 +79,8 @@ function Game:set_globals()
 
     self.WORLD = {
         -- GENERATION
-        CHUNK_COUNT_X = 3, 
-        CHUNK_COUNT_Y = 3,
+        CHUNK_COUNT_X = 6, 
+        CHUNK_COUNT_Y = 6,
         BLOCKS_PER_CHUNK_X = 110, 
         BLOCKS_PER_CHUNK_Y = 60,
         BLOCK_PIXEL_SIZE = 25
