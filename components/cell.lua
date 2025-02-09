@@ -11,7 +11,7 @@ function Cell:init(x, y)
 end
 
 function Cell:draw()
-    Node.draw(self);
+    Node.draw(self, { 1, 0, 0, 0.2 });
 
     -- if self.block then
     --  self.block:draw()

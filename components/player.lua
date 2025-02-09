@@ -5,8 +5,8 @@ function Player:init()
     -- add chunk draw depends on player pos
     Node.init(self, { 
         T = { 
-            x = (G.WORLD.WIDTH * G.WORLD.BLOCK_SIZE) / 2, 
-            y = (G.WORLD.HEIGHT * G.WORLD.BLOCK_SIZE) / 2, 
+            x = (G.WORLD_WIDTH) / 2, 
+            y = (G.WORLD_HEIGHT) / 2, 
             w = 50, h = 100 
         } 
     })
@@ -19,7 +19,7 @@ function Player:init()
 end
 
 function Player:draw()
-    Node.draw(self, { 0, 0, 1, 1 });
+    Node.draw(self, { 0.75, 0.25, 0.75, 1 }, 5);
 
     if G.DEBUG and G.DEBUG_FEATURES.PLAYER then
         love.graphics.print(self.T.x .. " | " .. self.T.y, self.T.x, self.T.y + self.T.h + 10) 

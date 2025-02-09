@@ -29,7 +29,7 @@ function Chunk:init(x, y)
 end
 
 function Chunk:draw()
-    Node.draw(self, { 0, 1, 0, 1}, 5)
+    Node.draw(self, { 0, 1, 0, 0.2 }, 5)
 
     for _, row in pairs(self.cells) do
         for _, cell in pairs(row) do

@@ -41,12 +41,21 @@ end
 
 function Grid:draw()
     if self.generated then     
-        -- do not iterate chunksss broo, you have currentChunk -_-
-        for chunk_x, row in pairs(self.chunks) do
-            for chunk_y, chunk in pairs(row) do
-                if chunk_x == self.currentChunk.x and chunk_y == self.currentChunk.y then
-                    chunk:draw()
-                end
+        local chunk_tl  = { x = self.currentChunk.x - 1,    y = self.currentChunk.y - 1 }
+        local chunk_t   = { x = self.currentChunk.x,        y = self.currentChunk.y - 1 }
+        local chunk_tr  = { x = self.currentChunk.x + 1,    y = self.currentChunk.y - 1 }
+        local chunk_l   = { x = self.currentChunk.x - 1,    y = self.currentChunk.y }
+        local chunk_m   = { x = self.currentChunk.x,        y = self.currentChunk.y }
+        local chunk_r   = { x = self.currentChunk.x + 1,    y = self.currentChunk.y }
+        local chunk_bl  = { x = self.currentChunk.x - 1,    y = self.currentChunk.y + 1 }
+        local chunk_b   = { x = self.currentChunk.x,        y = self.currentChunk.y + 1 }
+        local chunk_br  = { x = self.currentChunk.x + 1,    y = self.currentChunk.y + 1 }
+
+        local chunkCoords = { chunk_tl, chunk_t, chunk_tr, chunk_l, chunk_m, chunk_r, chunk_bl, chunk_b, chunk_br }
+
+        for _, coords in pairs(chunkCoords) do
+            if self.chunks[coords.x] and self.chunks[coords.x][coords.y] then
+                self.chunks[coords.x][coords.y]:draw()             
             end
         end
     end

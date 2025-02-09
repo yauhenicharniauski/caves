@@ -5,7 +5,7 @@ function Game:set_globals()
     
     self.DEBUG = true
     self.DEBUG_FEATURES = {
-        GRID = true,
+        GRID = false, -- danger, low fps
         PLAYER = true
     }
 
@@ -55,20 +55,26 @@ function Game:set_globals()
         }
     }
 
-    self.CAM = {
-        step = 123
+    self.CAMERA = {
+        min_zoom = 0.6,
+        max_zoom = 1.5,
+        zoom_step = 0.1,
+        step = 100
     }
 
     self.WORLD = {
         -- how many chunks will be loaded
-        WIDTH = 5, 
-        HEIGHT = 5,
+        WIDTH = 20, 
+        HEIGHT = 10,
         -- chunk width in blocks
-        CHUNK_WIDTH = 10, 
-        CHUNK_HEIGHT = 10,
+        CHUNK_WIDTH = 110, 
+        CHUNK_HEIGHT = 60,
 
         BLOCK_SIZE = 25
     }
+
+    self.WORLD_WIDTH = self.WORLD.WIDTH * self.WORLD.CHUNK_WIDTH * self.WORLD.BLOCK_SIZE
+    self.WORLD_HEIGHT = self.WORLD.HEIGHT * self.WORLD.CHUNK_HEIGHT * self.WORLD.BLOCK_SIZE
 end
 
 _G.G = Game();
