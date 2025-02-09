@@ -11,7 +11,7 @@ end
 function Game:start_up()
     love.graphics.setDefaultFilter("nearest", "nearest") -- Prevent blurring
 
-    self.cam = gamera.new(0, 0, G.WORLD.WIDTH * G.WORLD.BLOCK_SIZE, G.WORLD.HEIGHT * G.WORLD.BLOCK_SIZE)
+    self.cam = gamera.new(0, 0, G.WORLD.WIDTH * G.WORLD.CHUNK_WIDTH * G.WORLD.BLOCK_SIZE, G.WORLD.HEIGHT * G.WORLD.CHUNK_HEIGHT * G.WORLD.BLOCK_SIZE)
 
     self.grid = Grid()
 
@@ -23,6 +23,8 @@ function Game:start_up()
 end
 
 function Game:update(dt)
+    self.grid:update()
+
     self.player:handleMovement(dt)
     self.cam:lookAt(self.player)
 end

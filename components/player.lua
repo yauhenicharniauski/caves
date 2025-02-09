@@ -11,7 +11,7 @@ function Player:init()
         } 
     })
 
-    self.speed = 100
+    self.speed = 300
 
     if getmetatable(self) == Player then
         table.insert(G.I.PLAYER, self);
@@ -20,6 +20,10 @@ end
 
 function Player:draw()
     Node.draw(self, { 0, 0, 1, 1 });
+
+    if G.DEBUG and G.DEBUG_FEATURES.PLAYER then
+        love.graphics.print(self.T.x .. " | " .. self.T.y, self.T.x, self.T.y + self.T.h + 10) 
+    end
 end
 
 function Player:remove()

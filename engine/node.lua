@@ -33,17 +33,19 @@ function Node:init(args)
 end
 
 -- Used only for debugging
-function Node:draw_boundingrect(debugColor)
+function Node:draw_boundingrect(debugColor, borderWidth)
     if G.DEBUG then
         local transform = self.T;
 
         local color = debugColor and debugColor or {1, 0, 0, 1}; -- red
+        local width = borderWidth or 1;
 
         love.graphics.push();
 
         love.graphics.translate(transform.x + transform.w * 0.5, transform.y + transform.h * 0.5);
         love.graphics.rotate(transform.r);
         love.graphics.translate(-transform.w * 0.5, -transform.h * 0.5);
+        love.graphics.setLineWidth(width);
         love.graphics.setColor(color);
         love.graphics.rectangle('line', 0, 0, transform.w, transform.h);
 
@@ -52,10 +54,10 @@ function Node:draw_boundingrect(debugColor)
     end
 end
 
-function Node:draw(debugColor)
+function Node:draw(debugColor, debugBorderWidth)
     if getmetatable(self) == Cell and not G.DEBUG_FEATURES.GRID then return end
 
-    self:draw_boundingrect(debugColor);
+    self:draw_boundingrect(debugColor, debugBorderWidth);
 end
 
 function Node:remove()

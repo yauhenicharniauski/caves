@@ -5,7 +5,8 @@ function Game:set_globals()
     
     self.DEBUG = true
     self.DEBUG_FEATURES = {
-        GRID = true
+        GRID = true,
+        PLAYER = true
     }
 
     -- Instances
@@ -59,8 +60,13 @@ function Game:set_globals()
     }
 
     self.WORLD = {
-        WIDTH = 150, -- blocks
-        HEIGHT = 150, -- blocks
+        -- how many chunks will be loaded
+        WIDTH = 5, 
+        HEIGHT = 5,
+        -- chunk width in blocks
+        CHUNK_WIDTH = 10, 
+        CHUNK_HEIGHT = 10,
+
         BLOCK_SIZE = 25
     }
 end
