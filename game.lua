@@ -34,7 +34,14 @@ function Game:draw()
         self:draw_background(l, t, w, h);
         self.grid:draw();
 
-        for _, instances in pairs(G.I) do
+        local drawOrder = { 
+            G.I.NODE, 
+            G.I.SPRITE, 
+            -- G.I.BLOCK, 
+            G.I.PLAYER
+        }
+
+        for _, instances in ipairs(drawOrder) do
             for _, v in pairs(instances) do
                 v:draw()
             end

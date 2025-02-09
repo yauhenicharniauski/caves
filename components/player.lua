@@ -2,7 +2,6 @@
 Player = Node:extend() -- should be Moveable or smth like this in future
 
 function Player:init()
-    -- add chunk draw depends on player pos
     Node.init(self, { 
         T = { 
             x = (G.WORLD_WIDTH) / 2, 

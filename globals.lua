@@ -2,6 +2,7 @@ _G.VERSION = '0.0.0'
 
 function Game:set_globals()
     self.VERSION = VERSION
+    self.SEED = 1234
     
     self.DEBUG = true
     self.DEBUG_FEATURES = {
