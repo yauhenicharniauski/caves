@@ -8,10 +8,10 @@ function Block:init(x, y, block, view)
         Sprite.init(
             self, 
             { 
-                x = x * G.WORLD.BLOCK_SIZE,
-                y = y * G.WORLD.BLOCK_SIZE,
-                w = G.WORLD.BLOCK_SIZE,
-                h = G.WORLD.BLOCK_SIZE
+                x = x * G.WORLD.BLOCK_PIXEL_SIZE,
+                y = y * G.WORLD.BLOCK_PIXEL_SIZE,
+                w = G.WORLD.BLOCK_PIXEL_SIZE,
+                h = G.WORLD.BLOCK_PIXEL_SIZE
             },
             self.texture.ATLAS,
             self.texture.SPRITE_SIZE,

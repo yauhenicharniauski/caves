@@ -56,25 +56,22 @@ function Game:set_globals()
     }
 
     self.CAMERA = {
-        min_zoom = 0.6,
-        max_zoom = 1.5,
-        zoom_step = 0.1,
-        step = 100
+        MIN_ZOOM = 0.6,
+        MAX_ZOOM = 1.5,
+        ZOOM_STEP = 0.1,
     }
 
     self.WORLD = {
-        -- how many chunks will be loaded
-        WIDTH = 20, 
-        HEIGHT = 10,
-        -- chunk width in blocks
-        CHUNK_WIDTH = 110, 
-        CHUNK_HEIGHT = 60,
-
-        BLOCK_SIZE = 25
+        -- GENERATION
+        CHUNK_COUNT_X = 3, 
+        CHUNK_COUNT_Y = 3,
+        BLOCKS_PER_CHUNK_X = 110, 
+        BLOCKS_PER_CHUNK_Y = 60,
+        BLOCK_PIXEL_SIZE = 25
     }
 
-    self.WORLD_WIDTH = self.WORLD.WIDTH * self.WORLD.CHUNK_WIDTH * self.WORLD.BLOCK_SIZE
-    self.WORLD_HEIGHT = self.WORLD.HEIGHT * self.WORLD.CHUNK_HEIGHT * self.WORLD.BLOCK_SIZE
+    self.WORLD_WIDTH = self.WORLD.CHUNK_COUNT_X * self.WORLD.BLOCKS_PER_CHUNK_X * self.WORLD.BLOCK_PIXEL_SIZE
+    self.WORLD_HEIGHT = self.WORLD.CHUNK_COUNT_Y * self.WORLD.BLOCKS_PER_CHUNK_Y * self.WORLD.BLOCK_PIXEL_SIZE
 end
 
 _G.G = Game();

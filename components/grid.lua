@@ -12,12 +12,12 @@ end
 
 function Grid:generate()
     -- 1 step / Chunks generation
-    for row = 1, G.WORLD.WIDTH do
+    for row = 1, G.WORLD.CHUNK_COUNT_X do
         if not self.chunks[row] then
             self.chunks[row] = {}
         end
         
-        for col = 1, G.WORLD.HEIGHT do
+        for col = 1, G.WORLD.CHUNK_COUNT_Y do
             if not self.chunks[row][col] then
                 self.chunks[row][col] = {}
             end
@@ -33,8 +33,8 @@ function Grid:generate()
 end
 
 function Grid:update()
-    local chunkX = math.floor((G.player.T.x + G.player.T.w / 2) / (G.WORLD.CHUNK_WIDTH * G.WORLD.BLOCK_SIZE)) + 1
-    local chunkY = math.floor((G.player.T.y + G.player.T.h / 2) / (G.WORLD.CHUNK_HEIGHT * G.WORLD.BLOCK_SIZE)) + 1
+    local chunkX = math.floor((G.player.T.x + G.player.T.w / 2) / (G.WORLD.BLOCKS_PER_CHUNK_X * G.WORLD.BLOCK_PIXEL_SIZE)) + 1
+    local chunkY = math.floor((G.player.T.y + G.player.T.h / 2) / (G.WORLD.BLOCKS_PER_CHUNK_Y * G.WORLD.BLOCK_PIXEL_SIZE)) + 1
 
     self.currentChunk = { x = chunkX, y = chunkY }
 end

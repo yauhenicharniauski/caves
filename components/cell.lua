@@ -2,7 +2,7 @@
 Cell = Node:extend();
 
 function Cell:init(x, y)
-    Node.init(self, { T = { x = x * G.WORLD.BLOCK_SIZE, y = y * G.WORLD.BLOCK_SIZE, w = G.WORLD.BLOCK_SIZE, h = G.WORLD.BLOCK_SIZE }})
+    Node.init(self, { T = { x = x * G.WORLD.BLOCK_PIXEL_SIZE, y = y * G.WORLD.BLOCK_PIXEL_SIZE, w = G.WORLD.BLOCK_PIXEL_SIZE, h = G.WORLD.BLOCK_PIXEL_SIZE }})
 
     self.block = nil;
     self.states = {

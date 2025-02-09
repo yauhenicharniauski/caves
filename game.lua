@@ -46,43 +46,17 @@ function Game:keypressed(key, scancode, isrepeat)
     if key == "escape" then
         love.event.quit()
     end
-
-    if key == "w" then
-        local x, y = self.cam:getPosition();
-        self.cam:setPosition(x, y - G.CAMERA.step);
-    end
-
-    if key == "a" then
-        local x, y = self.cam:getPosition();
-        self.cam:setPosition(x - G.CAMERA.step, y);
-    end
-
-    if key == "s" then
-        local x, y = self.cam:getPosition();
-        self.cam:setPosition(x, y + G.CAMERA.step);
-    end
-
-    if key == "d" then
-        local x, y = self.cam:getPosition();
-        self.cam:setPosition(x + G.CAMERA.step, y);
-    end
-
-    if key == "]" or key == "[" then
-        local dstep = key == "]" and 75 or -75;
-        print('CAM STEP WAS CHANGED: ', G.CAMERA.step + dstep);
-        G.CAMERA.step = G.CAMERA.step + dstep;
-    end
 end
 
 function Game:wheelmoved(dx, dy)
     local currentScale = self.cam:getScale();
     print(currentScale);
-    if (dy > 0) and currentScale < G.CAMERA.max_zoom then
+    if (dy > 0) and currentScale < G.CAMERA.MAX_ZOOM then
         -- zoom in
-        self.cam:setScale(currentScale + G.CAMERA.zoom_step)
-    elseif (dy < 0) and currentScale >= G.CAMERA.min_zoom then
+        self.cam:setScale(currentScale + G.CAMERA.ZOOM_STEP)
+    elseif (dy < 0) and currentScale >= G.CAMERA.MIN_ZOOM then
         -- zoom out
-        self.cam:setScale(currentScale - G.CAMERA.zoom_step)
+        self.cam:setScale(currentScale - G.CAMERA.ZOOM_STEP)
     end
 end
 

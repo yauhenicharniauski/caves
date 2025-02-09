@@ -7,23 +7,23 @@ function Chunk:init(x, y)
     Node.init(self, 
         { 
             T = { 
-                x = x * G.WORLD.CHUNK_WIDTH * G.WORLD.BLOCK_SIZE, 
-                y = y * G.WORLD.CHUNK_HEIGHT * G.WORLD.BLOCK_SIZE, 
-                w = G.WORLD.CHUNK_WIDTH * G.WORLD.BLOCK_SIZE, 
-                h = G.WORLD.CHUNK_HEIGHT * G.WORLD.BLOCK_SIZE
+                x = x * G.WORLD.BLOCKS_PER_CHUNK_X * G.WORLD.BLOCK_PIXEL_SIZE, 
+                y = y * G.WORLD.BLOCKS_PER_CHUNK_Y * G.WORLD.BLOCK_PIXEL_SIZE, 
+                w = G.WORLD.BLOCKS_PER_CHUNK_X * G.WORLD.BLOCK_PIXEL_SIZE, 
+                h = G.WORLD.BLOCKS_PER_CHUNK_Y * G.WORLD.BLOCK_PIXEL_SIZE
             }
         }
     )
 
     self.cells = {}
 
-    for row = 1, G.WORLD.CHUNK_WIDTH do
+    for row = 1, G.WORLD.BLOCKS_PER_CHUNK_X do
         if not self.cells[row] then
             self.cells[row] = {}
         end
 
-        for col = 1, G.WORLD.CHUNK_HEIGHT do
-            self.cells[row][col] = Cell(x * G.WORLD.CHUNK_WIDTH + (row - 1), y * G.WORLD.CHUNK_HEIGHT + (col - 1))
+        for col = 1, G.WORLD.BLOCKS_PER_CHUNK_Y do
+            self.cells[row][col] = Cell(x * G.WORLD.BLOCKS_PER_CHUNK_X + (row - 1), y * G.WORLD.BLOCKS_PER_CHUNK_Y + (col - 1))
         end
     end
 end

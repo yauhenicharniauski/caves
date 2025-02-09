@@ -1,3 +1,5 @@
+require "utils"
+
 require "engine/object"
 require "engine/node"
 require "engine/sprite"
@@ -9,7 +11,7 @@ require "globals"
 
 function love.load()
     love.window.setMode(1280, 720, { display = 3, fullscreen = false })
-
+    
     G:start_up();
 end
 
