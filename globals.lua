@@ -81,10 +81,10 @@ function Game:set_globals()
 
     self.WORLD = {
         -- GENERATION
-        CHUNK_COUNT_X = 1, 
-        CHUNK_COUNT_Y = 1,
-        BLOCKS_PER_CHUNK_X = 40, 
-        BLOCKS_PER_CHUNK_Y = 40,
+        CHUNK_COUNT_X = 6, 
+        CHUNK_COUNT_Y = 6,
+        BLOCKS_PER_CHUNK_X = 140, 
+        BLOCKS_PER_CHUNK_Y = 80,
         BLOCK_PIXEL_SIZE = 25
     }
 

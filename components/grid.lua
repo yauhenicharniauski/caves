@@ -33,8 +33,10 @@ function Grid:generate()
 end
 
 function Grid:update()
-    local chunkX = math.floor((G.player.T.x + G.player.T.w / 2) / (G.WORLD.BLOCKS_PER_CHUNK_X * G.WORLD.BLOCK_PIXEL_SIZE)) + 1
-    local chunkY = math.floor((G.player.T.y + G.player.T.h / 2) / (G.WORLD.BLOCKS_PER_CHUNK_Y * G.WORLD.BLOCK_PIXEL_SIZE)) + 1
+    local x, y = G.cam:getPosition()
+
+    local chunkX = math.floor(x / (G.WORLD.BLOCKS_PER_CHUNK_X * G.WORLD.BLOCK_PIXEL_SIZE)) + 1
+    local chunkY = math.floor(y / (G.WORLD.BLOCKS_PER_CHUNK_Y * G.WORLD.BLOCK_PIXEL_SIZE)) + 1
 
     self.currentChunk = { x = chunkX, y = chunkY }
 end
@@ -53,11 +55,14 @@ function Grid:draw()
 
         local chunkCoords = { chunk_tl, chunk_t, chunk_tr, chunk_l, chunk_m, chunk_r, chunk_bl, chunk_b, chunk_br }
 
-        -- refactor and use camera.visibleArea
-
         for _, coords in pairs(chunkCoords) do
-            if self.chunks[coords.x] and self.chunks[coords.x][coords.y] then
-                self.chunks[coords.x][coords.y]:draw()             
+            local chunk = (self.chunks[coords.x] and self.chunks[coords.x][coords.y]) or nil
+            local x1, y1, _, _, x2, y2 = G.cam:getVisibleCorners()
+
+            local delta = G.WORLD.BLOCK_PIXEL_SIZE
+
+            if chunk and Utils.AABB(chunk, x1 - delta, y1 - delta, x2 + delta, y2 + delta) then
+                chunk:draw()
             end
         end
     end
