@@ -6,7 +6,7 @@ function Game:set_globals()
     
     self.DEBUG = true
     self.DEBUG_FEATURES = {
-        GRID = false, 
+        GRID = true, 
         PLAYER = true,
         FPS_COUNTER = true
     }
@@ -83,8 +83,8 @@ function Game:set_globals()
         -- GENERATION
         CHUNK_COUNT_X = 1, 
         CHUNK_COUNT_Y = 1,
-        BLOCKS_PER_CHUNK_X = 110, 
-        BLOCKS_PER_CHUNK_Y = 60,
+        BLOCKS_PER_CHUNK_X = 40, 
+        BLOCKS_PER_CHUNK_Y = 40,
         BLOCK_PIXEL_SIZE = 25
     }
 

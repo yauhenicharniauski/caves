@@ -13,8 +13,8 @@ end
 function Cell:draw()
     if self.block then
         self.block:draw()
-    elseif G.DEBUG and G.DEBUG_FEATURES.GRID then
-        Node.draw(self, { 1, 0, 0, 0.2 });
+    elseif G.DEBUG and G.DEBUG_FEATURES.GRID and Utils.withinPlayerRadius(self, 250) then
+        Node.draw(self, { 1, 1, 0, 0.2 });
     end
 end
 
