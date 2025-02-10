@@ -19,7 +19,9 @@ function Game:start_up()
 end
 
 function Game:update(dt)
-    self.grid:update()
+    self.grid:update(dt)
+
+    G.DEBUG_VALUES["FPS"] = love.timer.getFPS()
 
     self.player:handleMovement(dt)
     self.cam:lookAt(self.player)
@@ -44,12 +46,13 @@ function Game:draw()
         end
     end)
 
-    if G.DEBUG and G.DEBUG_FEATURES.FPS_COUNTER then
-        love.graphics.push()
-            love.graphics.origin()
-            love.graphics.print(love.timer.getFPS(), 10, 10)
-        love.graphics.pop()
-    end 
+    love.graphics.push()
+        local index = 0
+        for key, debug_value in pairs(G.DEBUG_VALUES) do
+            love.graphics.print(key .. ": " .. debug_value, 10, 10 + 20 * index)
+            index = index + 1
+        end
+    love.graphics.pop()
 end
 
 function Game:keypressed(key, scancode, isrepeat)
