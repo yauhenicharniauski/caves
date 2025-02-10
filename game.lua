@@ -9,8 +9,6 @@ function Game:init()
 end
 
 function Game:start_up()
-    love.graphics.setDefaultFilter("nearest", "nearest") -- Prevent blurring
-
     self.cam = gamera.new(0, 0, G.WORLD_WIDTH, G.WORLD_HEIGHT)
 
     self.grid = Grid()
@@ -18,8 +16,6 @@ function Game:start_up()
     self.grid:generate()
 
     self.player = Player()
-    -- Block(3, 8, G.ENUMS.BLOCKS.DIRT, 1)
-    -- Sprite({ x = 100, y = 100, w = 100, h = 100}, G.TEXTURES.DIRT.ATLAS, G.TEXTURES.DIRT.SPRITE_SIZE, 1)
 end
 
 function Game:update(dt)
@@ -47,6 +43,13 @@ function Game:draw()
             end
         end
     end)
+
+    if G.DEBUG and G.DEBUG_FEATURES.FPS_COUNTER then
+        love.graphics.push()
+            love.graphics.origin()
+            love.graphics.print(love.timer.getFPS(), 10, 10)
+        love.graphics.pop()
+    end 
 end
 
 function Game:keypressed(key, scancode, isrepeat)

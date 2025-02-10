@@ -35,7 +35,7 @@ function Sprite:init(T, atlas, sprite_size, sprite_pos)
     end
 end
 
-function Sprite:draw()
+function Sprite:draw(options)
     local sx = self.T.w / self.sprite_meta.w
     local sy = self.T.h / self.sprite_meta.h
     
@@ -43,7 +43,9 @@ function Sprite:draw()
     love.graphics.draw(self.atlas, self.sprite, self.T.x, self.T.y, 0, sx, sy)
     love.graphics.pop()
     
-    Node.draw(self)
+    if options.debug then
+        Node.draw(self)
+    end
 end
 
 function Sprite:remove()

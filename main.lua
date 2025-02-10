@@ -10,7 +10,7 @@ require "game"
 require "globals"
 
 function love.load()
-    love.window.setMode(1280, 720, { display = 3, fullscreen = false })
+    love.window.setMode(1280, 720, { display = 1, fullscreen = true })
     
     G:start_up();
 end

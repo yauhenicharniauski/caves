@@ -25,7 +25,7 @@ function Block:init(x, y, block, view)
 end
 
 function Block:draw()
-    Sprite.draw(self)
+    Sprite.draw(self, { debug = false })
 end
 
 function Block:remove()

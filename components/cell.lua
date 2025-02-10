@@ -11,10 +11,10 @@ function Cell:init(x, y, block)
 end
 
 function Cell:draw()
-    Node.draw(self, { 1, 0, 0, 0.2 });
-
     if self.block then
         self.block:draw()
+    elseif G.DEBUG and G.DEBUG_FEATURES.GRID then
+        Node.draw(self, { 1, 0, 0, 0.2 });
     end
 end
 

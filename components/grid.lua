@@ -53,6 +53,8 @@ function Grid:draw()
 
         local chunkCoords = { chunk_tl, chunk_t, chunk_tr, chunk_l, chunk_m, chunk_r, chunk_bl, chunk_b, chunk_br }
 
+        -- refactor and use camera.visibleArea
+
         for _, coords in pairs(chunkCoords) do
             if self.chunks[coords.x] and self.chunks[coords.x][coords.y] then
                 self.chunks[coords.x][coords.y]:draw()             

@@ -6,8 +6,9 @@ function Game:set_globals()
     
     self.DEBUG = true
     self.DEBUG_FEATURES = {
-        GRID = false, -- danger, low fps
-        PLAYER = true
+        GRID = false, 
+        PLAYER = true,
+        FPS_COUNTER = true
     }
 
     -- Instances
@@ -27,6 +28,7 @@ function Game:set_globals()
     --------------------------
     --      TEXTURES        --
     --------------------------
+    love.graphics.setDefaultFilter("nearest", "nearest") -- Prevent blurring
 
     self.TEXTURES = {
         DIRT = {
@@ -74,13 +76,13 @@ function Game:set_globals()
     self.CAMERA = {
         MIN_ZOOM = 0.6,
         MAX_ZOOM = 1.5,
-        ZOOM_STEP = 0.1,
+        ZOOM_STEP = 0.2,
     }
 
     self.WORLD = {
         -- GENERATION
-        CHUNK_COUNT_X = 6, 
-        CHUNK_COUNT_Y = 6,
+        CHUNK_COUNT_X = 1, 
+        CHUNK_COUNT_Y = 1,
         BLOCKS_PER_CHUNK_X = 110, 
         BLOCKS_PER_CHUNK_Y = 60,
         BLOCK_PIXEL_SIZE = 25
