@@ -66,7 +66,7 @@ end
 
 function Game:draw_background(l, t, w, h)
     love.graphics.push()
-        love.graphics.setColor(0.1, 0, 0.1, 1)
+        love.graphics.setColor(0.3, 0, 0.7, 1 - ((G.player.T.y * 3) / G.WORLD_HEIGHT))
         love.graphics.rectangle('fill', l, t, w, h)
         love.graphics.setColor(1, 1, 1, 1)
     love.graphics.pop()
