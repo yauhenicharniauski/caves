@@ -82,23 +82,24 @@ function Chunk:update(dt)
         self.currentUpdateTime = 0
         self.visibleCells = {}
 
-        local x1,y1,_,_,x3,y3,_,_ = G.cam:getVisibleCorners()
+        local x1, y1, _, _, x3, y3, _, _ = G.cam:getVisibleCorners()
 
         -- refactor, create a name for 500 gap pls
+        local cameraBorderWidth = 500
+
         for _, row in pairs(self.cells) do
             for _, cell in pairs(row) do
                 if 
-                    cell.T.x > x1 - G.WORLD.BLOCK_PIXEL_SIZE - 500 and -- needs to be substructed here because origin is on left top angle
-                    cell.T.x < x3 + 500 and
-                    cell.T.y > y1 - 500 - G.WORLD.BLOCK_PIXEL_SIZE and
-                    cell.T.y < y3 + 500
+                    cell.T.x > x1 - G.WORLD.BLOCK_PIXEL_SIZE - cameraBorderWidth and
+                    cell.T.x < x3 + cameraBorderWidth and
+                    cell.T.y > y1 - G.WORLD.BLOCK_PIXEL_SIZE - cameraBorderWidth and
+                    cell.T.y < y3 + cameraBorderWidth
                 then
                     table.insert(self.visibleCells, cell)
                 end
             end
         end
     end
-    
 end
 
 function Chunk:draw()

@@ -59,7 +59,7 @@ function Game:set_globals()
                 p = 0
             },
             VIEWS = {
-                {0, 0}
+                { 0, 0 }
             }
         }
     }
@@ -74,17 +74,19 @@ function Game:set_globals()
     --------------------------
 
     self.CAMERA = {
-        MIN_ZOOM = 0.6,
-        MAX_ZOOM = 1.5,
-        ZOOM_STEP = 0.2,
+        VIRTUAL_WIDTH = 1920,
+        VIRTUAL_HEIGHT = 1080,
+        ZOOM_DELTA = 0.5,
+        ZOOM_STEP = 0.1,
+        SCALE_FACTOR = nil
     }
 
     self.WORLD = {
         -- GENERATION
         CHUNK_COUNT_X = 3, 
         CHUNK_COUNT_Y = 3,
-        BLOCKS_PER_CHUNK_X = 140,--140, 
-        BLOCKS_PER_CHUNK_Y = 80,--80,
+        BLOCKS_PER_CHUNK_X = 250,--140, 
+        BLOCKS_PER_CHUNK_Y = 150,--80,
         BLOCK_PIXEL_SIZE = 25
     }
 

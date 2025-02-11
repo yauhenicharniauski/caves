@@ -9,19 +9,18 @@ function Game:init()
 end
 
 function Game:start_up()
-    self.cam = gamera.new(0, 0, G.WORLD_WIDTH, G.WORLD_HEIGHT)
+    self:camera_init()
 
     self.grid = Grid()
-
     self.grid:generate()
 
     self.player = Player()
 end
 
 function Game:update(dt)
-    self.grid:update(dt)
-
     G.DEBUG_VALUES["FPS"] = love.timer.getFPS()
+
+    self.grid:update(dt)
 
     self.player:handleMovement(dt)
     self.cam:lookAt(self.player)
@@ -62,15 +61,7 @@ function Game:keypressed(key, scancode, isrepeat)
 end
 
 function Game:wheelmoved(dx, dy)
-    local currentScale = self.cam:getScale();
-    print(currentScale);
-    if (dy > 0) and currentScale < G.CAMERA.MAX_ZOOM then
-        -- zoom in
-        self.cam:setScale(currentScale + G.CAMERA.ZOOM_STEP)
-    elseif (dy < 0) and currentScale >= G.CAMERA.MIN_ZOOM then
-        -- zoom out
-        self.cam:setScale(currentScale - G.CAMERA.ZOOM_STEP)
-    end
+    self:handle_zoom(dy)
 end
 
 function Game:draw_background(l, t, w, h)
@@ -79,4 +70,46 @@ function Game:draw_background(l, t, w, h)
         love.graphics.rectangle('fill', l, t, w, h)
         love.graphics.setColor(1, 1, 1, 1)
     love.graphics.pop()
+end
+
+function Game:camera_init()
+    local width, height = love.graphics.getDimensions()
+
+    local scaleX = width / G.CAMERA.VIRTUAL_WIDTH
+    local scaleY = height / G.CAMERA.VIRTUAL_HEIGHT
+    local scaleFactor = math.min(scaleX, scaleY)
+
+    self.cam = gamera.new(0, 0, G.WORLD_WIDTH, G.WORLD_HEIGHT)
+
+    self.CAMERA.SCALE_FACTOR = scaleFactor
+    self.cam:setScale(scaleFactor)
+end
+
+function Game:handle_zoom(dy)
+    if self.cam then
+        local scaleFactor = self.cam:getScale()
+
+        local minZoom = G.CAMERA.SCALE_FACTOR * 0.7 
+        local maxZoom = G.CAMERA.SCALE_FACTOR * 2.0
+
+        local zoomFactor = 1.1
+
+        if dy > 0 then
+            -- zoom in    
+            print("zoom in")
+            local newScale = scaleFactor * zoomFactor
+            if newScale <= maxZoom then
+                self.cam:setScale(newScale)
+            end
+        elseif dy < 0 then
+            -- zoom out
+            print("zoom out")
+            local newScale = scaleFactor / zoomFactor
+            if newScale >= minZoom then
+                self.cam:setScale(newScale)
+            end
+        end
+
+        G.DEBUG_VALUES["SCALE"] = self.cam:getScale()
+    end
 end

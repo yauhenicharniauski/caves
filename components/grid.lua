@@ -5,8 +5,10 @@ Grid = Node:extend()
 
 function Grid:init()
     self.chunks = {}
-    self.currentChunk = { x = 0, y = 0}
-    self.visibleChunks = 0
+    self.visibleChunks = {}
+    
+    self.updateTime = 0.3
+    self.currentUpdateTime = 0
 
     Node:init(self);
 end
@@ -34,48 +36,54 @@ function Grid:generate()
 end
 
 function Grid:update(dt)
-    local x, y = G.cam:getPosition()
+    self.currentUpdateTime = self.currentUpdateTime + dt
 
-    local chunkX = math.floor(x / (G.WORLD.BLOCKS_PER_CHUNK_X * G.WORLD.BLOCK_PIXEL_SIZE)) + 1
-    local chunkY = math.floor(y / (G.WORLD.BLOCKS_PER_CHUNK_Y * G.WORLD.BLOCK_PIXEL_SIZE)) + 1
+    if self.currentUpdateTime > self.updateTime then
+        self.currentUpdateTime = 0
+        local x, y = G.cam:getPosition()
 
-    self.currentChunk = { x = chunkX, y = chunkY }
+        local chunkX = math.floor(x / (G.WORLD.BLOCKS_PER_CHUNK_X * G.WORLD.BLOCK_PIXEL_SIZE)) + 1
+        local chunkY = math.floor(y / (G.WORLD.BLOCKS_PER_CHUNK_Y * G.WORLD.BLOCK_PIXEL_SIZE)) + 1
 
-    for _, row in pairs(self.chunks) do
-        for _, chunk in pairs(row) do
-            chunk:update(dt)
+        local currentChunk = { x = chunkX, y = chunkY }
+
+        if self.generated then     
+            local chunk_tl  = { x = currentChunk.x - 1,    y = currentChunk.y - 1 }
+            local chunk_t   = { x = currentChunk.x,        y = currentChunk.y - 1 }
+            local chunk_tr  = { x = currentChunk.x + 1,    y = currentChunk.y - 1 }
+            local chunk_l   = { x = currentChunk.x - 1,    y = currentChunk.y }
+            local chunk_m   = { x = currentChunk.x,        y = currentChunk.y }
+            local chunk_r   = { x = currentChunk.x + 1,    y = currentChunk.y }
+            local chunk_bl  = { x = currentChunk.x - 1,    y = currentChunk.y + 1 }
+            local chunk_b   = { x = currentChunk.x,        y = currentChunk.y + 1 }
+            local chunk_br  = { x = currentChunk.x + 1,    y = currentChunk.y + 1 }
+
+            local chunkCoords = { chunk_tl, chunk_t, chunk_tr, chunk_l, chunk_m, chunk_r, chunk_bl, chunk_b, chunk_br }
+
+            self.visibleChunks = {}
+
+            for _, coords in pairs(chunkCoords) do
+                local chunk = (self.chunks[coords.x] and self.chunks[coords.x][coords.y]) or nil
+                local x1, y1, _, _, x2, y2 = G.cam:getVisibleCorners()
+
+                local delta = G.WORLD.BLOCK_PIXEL_SIZE
+
+                if chunk and Utils.AABB(chunk, x1 - delta, y1 - delta, x2 + delta, y2 + delta) then
+                    table.insert(self.visibleChunks, chunk)
+                end
+            end
         end
     end
 
-    G.DEBUG_VALUES["VISIBLE_CHUNKS"] = self.visibleChunks
+    for _, chunk in pairs(self.visibleChunks) do
+        chunk:update(dt)
+    end
+
+    G.DEBUG_VALUES["VISIBLE_CHUNKS"] = #self.visibleChunks
 end
 
 function Grid:draw()
-    if self.generated then     
-        local chunk_tl  = { x = self.currentChunk.x - 1,    y = self.currentChunk.y - 1 }
-        local chunk_t   = { x = self.currentChunk.x,        y = self.currentChunk.y - 1 }
-        local chunk_tr  = { x = self.currentChunk.x + 1,    y = self.currentChunk.y - 1 }
-        local chunk_l   = { x = self.currentChunk.x - 1,    y = self.currentChunk.y }
-        local chunk_m   = { x = self.currentChunk.x,        y = self.currentChunk.y }
-        local chunk_r   = { x = self.currentChunk.x + 1,    y = self.currentChunk.y }
-        local chunk_bl  = { x = self.currentChunk.x - 1,    y = self.currentChunk.y + 1 }
-        local chunk_b   = { x = self.currentChunk.x,        y = self.currentChunk.y + 1 }
-        local chunk_br  = { x = self.currentChunk.x + 1,    y = self.currentChunk.y + 1 }
-
-        local chunkCoords = { chunk_tl, chunk_t, chunk_tr, chunk_l, chunk_m, chunk_r, chunk_bl, chunk_b, chunk_br }
-
-        self.visibleChunks = 0
-
-        for _, coords in pairs(chunkCoords) do
-            local chunk = (self.chunks[coords.x] and self.chunks[coords.x][coords.y]) or nil
-            local x1, y1, _, _, x2, y2 = G.cam:getVisibleCorners()
-
-            local delta = G.WORLD.BLOCK_PIXEL_SIZE
-
-            if chunk and Utils.AABB(chunk, x1 - delta, y1 - delta, x2 + delta, y2 + delta) then
-                chunk:draw()
-                self.visibleChunks = self.visibleChunks + 1
-            end
-        end
+    for _, chunk in pairs(self.visibleChunks) do
+        chunk:draw()
     end
 end
