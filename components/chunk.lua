@@ -63,12 +63,12 @@ function Chunk:init(x, y)
             local cellX = x * G.WORLD.BLOCKS_PER_CHUNK_X + (row - 1)
             local cellY = y * G.WORLD.BLOCKS_PER_CHUNK_Y + (col - 1)
 
-            local block = shouldPlaceBlock(cellX, cellY) and Block(cellX, cellY, G.ENUMS.BLOCKS.DIRT, 2) or nil
+            local block = shouldPlaceBlock(cellX, cellY) and Block(cellX * G.WORLD.BLOCK_PIXEL_SIZE, cellY * G.WORLD.BLOCK_PIXEL_SIZE, G.ENUMS.BLOCKS.DIRT, 2) or nil
 
             self.cells[row][col] = 
                 Cell(
-                    cellX, 
-                    cellY,
+                    cellX * G.WORLD.BLOCK_PIXEL_SIZE, 
+                    cellY * G.WORLD.BLOCK_PIXEL_SIZE,
                     block
                 )
         end
@@ -100,6 +100,10 @@ function Chunk:update(dt)
             end
         end
     end
+
+    for _, cell in pairs(self.visibleCells) do
+        cell:update(dt)
+    end
 end
 
 function Chunk:draw()
@@ -107,5 +111,11 @@ function Chunk:draw()
 
     for _, cell in pairs(self.visibleCells) do
         cell:draw()
+    end
+end
+
+function Chunk:mousepressed(x, y, button)
+    for _, cell in pairs(self.visibleCells) do
+        cell:mousepressed(x, y, button)
     end
 end

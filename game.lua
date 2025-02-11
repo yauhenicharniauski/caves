@@ -66,6 +66,10 @@ function Game:wheelmoved(dx, dy)
     self:handle_zoom(dy)
 end
 
+function Game:mousepressed(x, y, button)
+    self.grid:mousepressed(x, y, button)
+end
+
 function Game:draw_background(l, t, w, h)
     love.graphics.push()
         love.graphics.setColor(0.3, 0, 0.7, 1 - ((G.player.T.y * 3) / G.WORLD_HEIGHT))

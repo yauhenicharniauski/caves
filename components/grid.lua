@@ -6,7 +6,7 @@ Grid = Node:extend()
 function Grid:init()
     self.chunks = {}
     self.visibleChunks = {}
-    
+
     self.updateTime = 0.3
     self.currentUpdateTime = 0
 
@@ -85,5 +85,11 @@ end
 function Grid:draw()
     for _, chunk in pairs(self.visibleChunks) do
         chunk:draw()
+    end
+end
+
+function Grid:mousepressed(x, y, button)
+    for _, chunk in pairs(self.visibleChunks) do
+        chunk:mousepressed(x, y, button)
     end
 end

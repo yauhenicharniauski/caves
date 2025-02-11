@@ -10,8 +10,10 @@ function Player:init()
         } 
     })
 
-    self.speed = 1000
-    self.local_pos = { x = 0, y = 0 }
+    self.SPEED = 1000
+    self.BUILD_ACTION_RADIUS = 5 * G.WORLD.BLOCK_PIXEL_SIZE
+
+    self._localPos = { x = 0, y = 0 }
 
     if getmetatable(self) == Player then
         table.insert(G.I.PLAYER, self);
@@ -23,7 +25,7 @@ function Player:draw()
 
     if G.DEBUG and G.DEBUG_FEATURES.PLAYER then
         love.graphics.print("[GLOBAL]: " .. Utils.trunc(self.T.x) .. " | " .. Utils.trunc(self.T.y), self.T.x, self.T.y + self.T.h + 10) 
-        love.graphics.print("[LOCAL]: " .. self.local_pos.x .. " | " .. self.local_pos.y, self.T.x, self.T.y + self.T.h + 25) 
+        love.graphics.print("[LOCAL]: " .. self._localPos.x .. " | " .. self._localPos.y, self.T.x, self.T.y + self.T.h + 25) 
     end
 end
 
@@ -40,34 +42,34 @@ end
 
 function Player:handleMovement(dt)
     if love.keyboard.isDown('w') then
-        local newPos = self.T.y - self.speed * dt
+        local newPos = self.T.y - self.SPEED * dt
         if newPos > 0 then
             self.T.y = newPos         
         end
     end
 
     if love.keyboard.isDown('d') then
-        local newPos = self.T.x + self.speed * dt
+        local newPos = self.T.x + self.SPEED * dt
         if newPos < G.WORLD_WIDTH - self.T.w then
             self.T.x = newPos          
         end
     end
 
     if love.keyboard.isDown('a') then
-        local newPos = self.T.x - self.speed * dt
+        local newPos = self.T.x - self.SPEED * dt
         if newPos > 0 then            
             self.T.x = newPos
         end
     end
 
     if love.keyboard.isDown('s') then
-        local newPos = self.T.y + self.speed * dt
+        local newPos = self.T.y + self.SPEED * dt
         if newPos < G.WORLD_HEIGHT - self.T.h then
             self.T.y = newPos          
         end
     end
 
-    self.local_pos = {
+    self._localPos = {
         x = Utils.trunc(self.T.x / G.WORLD.BLOCK_PIXEL_SIZE),
         y = Utils.trunc(self.T.y / G.WORLD.BLOCK_PIXEL_SIZE)
     }

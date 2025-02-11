@@ -5,8 +5,8 @@ function Block:init(x, y, block, view)
     Sprite.init(
         self,
         { 
-            x = x * G.WORLD.BLOCK_PIXEL_SIZE,
-            y = y * G.WORLD.BLOCK_PIXEL_SIZE,
+            x = x,
+            y = y,
             w = G.WORLD.BLOCK_PIXEL_SIZE,
             h = G.WORLD.BLOCK_PIXEL_SIZE
         },
@@ -16,6 +16,10 @@ function Block:init(x, y, block, view)
     )
 
     self.blockType = block;
+end
+
+function Block:draw()
+    Sprite.draw(self)
 end
 
 function Block:updateView(view)

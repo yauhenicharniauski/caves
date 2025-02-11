@@ -4,11 +4,30 @@ function Utils.trunc(num)
     return num >= 0 and math.floor(num) or math.ceil(num)
 end
 
---- refactor me pls ((((
-function Utils.withinPlayerRadius(node, r)
-    if G.player and node and node.T then
-        local dx = (node.T.x + node.T.w / 2) - (G.player.T.x + G.player.T.w / 2);
-        local dy = (node.T.y + node.T.h / 2) - (G.player.T.y + G.player.T.h / 2);
+--- Is node or coords withing the player radius
+--- @overload fun(r: number, node: Node)
+--- @overload fun(r: number, x: number, y: number)
+--- @param r number # radius
+--- @param x Node | number # radius
+--- @param y number # radius
+function Utils.withinPlayerRadius(r, x, y)
+    if G.player then
+        local dx, dy = 0, 0
+        
+        local centerPlayerOrigin = {
+            x = G.player.T.x + G.player.T.w / 2,
+            y = G.player.T.y + G.player.T.h / 2
+        }
+
+        if type(x) == "table" then
+            local node = x
+
+            dx = (node.T.x + node.T.w / 2) - centerPlayerOrigin.x;
+            dy = (node.T.y + node.T.h / 2) - centerPlayerOrigin.y;
+        else
+            dx = x - centerPlayerOrigin.x;
+            dy = y - centerPlayerOrigin.y;
+        end
 
         return (dx * dx + dy * dy) <= r * r
     end

@@ -23,9 +23,18 @@ function love.draw()
     G:draw();
 end
 
+-- TODO: Refactor me
+-- Create global event handler
+
+function love.mousepressed(x, y, button, istouch)
+    G:mousepressed(x, y, button)
+ end
+
 function love.wheelmoved( dx, dy )
     G:wheelmoved(dx, dy)
 end
+
+-- -- -- -- -- -- -- -- -- --
 
 function love.keypressed(key, scancode, isrepeat)
     G:keypressed(key, scancode, isrepeat)
