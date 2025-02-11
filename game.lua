@@ -27,23 +27,25 @@ function Game:update(dt)
 end
 
 function Game:draw()
-    self.cam:draw(function(l, t, w, h)
-        self:draw_background(l, t, w, h);
-        self.grid:draw();
+    self.cam:draw(
+        function(l, t, w, h)
+            self:draw_background(l, t, w, h);
+            self.grid:draw();
 
-        local drawOrder = { 
-            G.I.NODE, 
-            G.I.SPRITE, 
-            -- G.I.BLOCK, 
-            G.I.PLAYER
-        }
+            local drawOrder = { 
+                G.I.NODE, 
+                G.I.SPRITE, 
+                -- G.I.BLOCK, 
+                G.I.PLAYER
+            }
 
-        for _, instances in ipairs(drawOrder) do
-            for _, v in pairs(instances) do
-                v:draw()
+            for _, instances in ipairs(drawOrder) do
+                for _, v in pairs(instances) do
+                    v:draw()
+                end
             end
         end
-    end)
+    )
 
     love.graphics.push()
         local index = 0

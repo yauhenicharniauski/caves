@@ -28,24 +28,18 @@ function Sprite:init(T, atlas, sprite_size, sprite_pos)
         w = sprite_size.w,
         h = sprite_size.h,
         p = sprite_size.p,
+        sx = self.T.w / sprite_size.w,
+        sy = self.T.h / sprite_size.h
     }
+
 
     if getmetatable(self) == Sprite then
         table.insert(G.I.SPRITE, self);
     end
 end
 
-function Sprite:draw(options)
-    local sx = self.T.w / self.sprite_meta.w
-    local sy = self.T.h / self.sprite_meta.h
-    
-    love.graphics.push()
-    love.graphics.draw(self.atlas, self.sprite, self.T.x, self.T.y, 0, sx, sy)
-    love.graphics.pop()
-    
-    if options.debug then
-        Node.draw(self)
-    end
+function Sprite:draw()
+    love.graphics.draw(self.atlas, self.sprite, self.T.x, self.T.y, 0, self.sprite_meta.sx, self.sprite_meta.sy)
 end
 
 function Sprite:remove()
