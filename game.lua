@@ -47,6 +47,13 @@ function Game:draw()
         end
     )
 
+    local stats = love.graphics.getStats()
+
+    G.DEBUG_VALUES["TEXTURE_MEM_USED (MB)"] = stats.texturememory / 1024 / 1024
+    G.DEBUG_VALUES["DRAWCALLS"] = stats.drawcalls
+    G.DEBUG_VALUES["DRAWCALLS_BATCHED"] = stats.drawcallsbatched
+    G.DEBUG_VALUES["IMAGES_LOADED"] = stats.images
+
     love.graphics.push()
         local index = 0
         for key, debug_value in pairs(G.DEBUG_VALUES) do
