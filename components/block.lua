@@ -1,12 +1,12 @@
 ---@class Block
 Block = Sprite:extend();
 
-function Block:init(x, y, block, view)
+function Block:init(xChunkRelative, yChunkRelative, block, view)
     Sprite.init(
         self,
         { 
-            x = x,
-            y = y,
+            x = xChunkRelative * G.WORLD.BLOCK_PIXEL_SIZE,
+            y = yChunkRelative * G.WORLD.BLOCK_PIXEL_SIZE,
             w = G.WORLD.BLOCK_PIXEL_SIZE,
             h = G.WORLD.BLOCK_PIXEL_SIZE
         },

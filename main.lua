@@ -16,6 +16,10 @@ function love.load()
 end
 
 function love.update(dt)
+    if G.DEBUG then
+        require("libs/lurker").update()        
+    end
+
     G:update(dt);
 end
 

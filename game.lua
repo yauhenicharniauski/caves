@@ -18,6 +18,8 @@ function Game:start_up()
 end
 
 function Game:update(dt)
+    G.DEBUG_VALUES = {}
+    
     G.DEBUG_VALUES["FPS"] = love.timer.getFPS()
 
     self.grid:update(dt)
@@ -50,7 +52,7 @@ function Game:draw()
     local stats = love.graphics.getStats()
 
     G.DEBUG_VALUES["TEXTURE_MEM_USED (MB)"] = stats.texturememory / 1024 / 1024
-    G.DEBUG_VALUES["DRAWCALLS"] = stats.drawcalls
+    G.DEBUG_VALUES["DRAW CALLS"] = stats.drawcalls
     G.DEBUG_VALUES["DRAWCALLS_BATCHED"] = stats.drawcallsbatched
     G.DEBUG_VALUES["IMAGES_LOADED"] = stats.images
 
@@ -109,14 +111,12 @@ function Game:handle_zoom(dy)
 
         if dy > 0 then
             -- zoom in    
-            print("zoom in")
             local newScale = scaleFactor * zoomFactor
             if newScale <= maxZoom then
                 self.cam:setScale(newScale)
             end
         elseif dy < 0 then
             -- zoom out
-            print("zoom out")
             local newScale = scaleFactor / zoomFactor
             if newScale >= minZoom then
                 self.cam:setScale(newScale)

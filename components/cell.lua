@@ -1,13 +1,15 @@
 ---@class Cell
 Cell = Node:extend();
 
-function Cell:init(x, y, block)
+function Cell:init(xChunkRelative, yChunkRelative, block)
     Node.init(self, { T = { 
-                x = x, 
-                y = y, 
+                x = xChunkRelative * G.WORLD.BLOCK_PIXEL_SIZE, 
+                y = yChunkRelative * G.WORLD.BLOCK_PIXEL_SIZE, 
                 w = G.WORLD.BLOCK_PIXEL_SIZE, 
                 h = G.WORLD.BLOCK_PIXEL_SIZE }})
 
+    self._chunk_x = xChunkRelative;
+    self._chunk_y = yChunkRelative;
     self.block = block and block or nil;
     self.states = {
         interactive = false
@@ -54,7 +56,7 @@ function Cell:mousepressed(x, y, button)
 
         if self.states.interactive then
             if button == 2 then
-                local block = Block(self.T.x, self.T.y, G.ENUMS.BLOCKS.DIRT, 2)
+                local block = Block(self._chunk_x, self._chunk_y, G.ENUMS.BLOCKS.DIRT, 2)
 
                 self:setBlock(block)
             end
