@@ -11,7 +11,7 @@ function Player:init()
     })
 
     self.SPEED = 1000
-    self.BUILD_ACTION_RADIUS = 5 * G.WORLD.BLOCK_PIXEL_SIZE
+    self.BUILD_ACTION_RADIUS = 10 * G.WORLD.BLOCK_PIXEL_SIZE
 
     self._localPos = { x = 0, y = 0 }
 

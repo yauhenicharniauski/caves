@@ -21,6 +21,9 @@ function Node:init(args)
         r = args.T.r or args.T[5] or 0
     }
 
+    self.T.xCenter = self.T.x + self.T.w / 2
+    self.T.yCenter = self.T.y + self.T.h / 2
+
     self.states = {
         visible = true,
         click = { can = false, is = false }

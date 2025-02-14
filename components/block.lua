@@ -15,7 +15,8 @@ function Block:init(xChunkRelative, yChunkRelative, block, view)
         G.TEXTURES[block].VIEWS[view]
     )
 
-    self.blockType = block;
+    self.currentView = view
+    self.blockType = block
 end
 
 function Block:draw()
@@ -26,4 +27,10 @@ function Block:updateView(view)
     if G.TEXTURES[self.blockType].VIEWS[view] then
         Sprite.updateSprite(self, G.TEXTURES[self.blockType].VIEWS[view])
     end
+end
+
+function Block:nextView()
+    local nextViewID = self.currentView + 1 > #G.TEXTURES[self.blockType].VIEWS and 1 or self.currentView + 1
+    self.currentView = nextViewID
+    Sprite.updateSprite(self, G.TEXTURES[self.blockType].VIEWS[nextViewID])
 end

@@ -23,11 +23,11 @@ end
 
 function Cell:draw()
     if self.block then
-        if self.states.interactive then love.graphics.setColor(1, 0, 0, 0.5) end
+        -- if self.states.interactive then love.graphics.setColor(1, 0, 0, 0.5) end
 
         self.block:draw()
 
-        love.graphics.setColor(1, 1, 1, 1)
+        -- love.graphics.setColor(1, 1, 1, 1)
     end
 end
 
@@ -56,14 +56,29 @@ function Cell:mousepressed(x, y, button)
 
         if self.states.interactive then
             if button == 2 then
-                local block = Block(self._chunk_x, self._chunk_y, G.ENUMS.BLOCKS.DIRT, 2)
-
-                self:setBlock(block)
+                if self.block then
+                    self.block:nextView()
+                else 
+                    local block = Block(self._chunk_x, self._chunk_y, G.ENUMS.BLOCKS.DIRT, 2)
+    
+                    self:setBlock(block)
+                end
             end
 
             if button == 1 then
                 self:removeBlock()
             end
+        end
+    end
+end
+
+function Cell:calculateView()
+    if self.block then
+
+        local topCell = G.grid:getCell(self.T.xCenter, self.T.yCenter - G.WORLD.BLOCK_PIXEL_SIZE)
+
+        if topCell and not topCell.block then
+            self.block:updateView(1)
         end
     end
 end

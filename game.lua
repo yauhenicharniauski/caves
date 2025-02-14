@@ -71,12 +71,17 @@ function Game:keypressed(key, scancode, isrepeat)
     end
 end
 
+
+function Game:mousepressed(x, y, button)
+    self.grid:mousepressed(x, y, button)
+end
+
 function Game:wheelmoved(dx, dy)
     self:handle_zoom(dy)
 end
 
-function Game:mousepressed(x, y, button)
-    self.grid:mousepressed(x, y, button)
+function Game:mousemoved(x, y, dx, dy, istouch)
+    self.grid:mousemoved(x, y)
 end
 
 function Game:draw_background(l, t, w, h)

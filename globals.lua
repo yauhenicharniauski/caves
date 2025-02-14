@@ -72,6 +72,11 @@ function Game:set_globals()
     end
 
     --------------------------
+    
+    self.CURSORS = {
+        REGULAR = love.mouse.getSystemCursor("crosshair"),
+        POINTER = love.mouse.getSystemCursor("hand")
+    }
 
     self.CAMERA = {
         VIRTUAL_WIDTH = 1920,

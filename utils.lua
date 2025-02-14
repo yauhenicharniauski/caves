@@ -35,24 +35,25 @@ end
 
 --- Is target within node
 ---@overload fun(node: Node, target: Node)
+---@overload fun(node: Node, x1: number, y1: number)
 ---@overload fun(node: Node, x1: number, y1: number, x2: number, y2: number)
 ---@param node Node # wrapper
----@param target Node # should be inside
-function Utils.AABB(node, target, y1, x2, y2)
+---@param x1 Node # should be inside
+function Utils.AABB(node, x1, y1, x2, y2)
     if node and node.T then
 
-        if target and type(target) == "table" then   
-            return node.T.x < target.T.x + target.T.w and
-                node.T.x + node.T.w > target.T.x and
-                node.T.y < target.T.y + target.T.h and
-                node.T.y + node.T.h > target.T.y
+        if x1 and type(x1) == "table" then   
+            return node.T.x < x1.T.x + x1.T.w and
+                node.T.x + node.T.w > x1.T.x and
+                node.T.y < x1.T.y + x1.T.h and
+                node.T.y + node.T.h > x1.T.y
         end
 
-        local x1 = target;
+        local x1 = x1;
 
-        return node.T.x < x2 and
+        return (x2 and node.T.x < x2 or true) and
             node.T.x + node.T.w > x1 and
-            node.T.y < y2 and
+            (y2 and node.T.y < y2 or true) and
             node.T.y + node.T.h > y1
     end
 end

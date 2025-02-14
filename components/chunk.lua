@@ -64,12 +64,11 @@ function Chunk:init(xGridRelative, yGridRelative)
 
             local block = shouldPlaceBlock(cellX, cellY) and Block(cellX, cellY, G.ENUMS.BLOCKS.DIRT, 2) or nil
 
-            self.cells[row][col] = 
-                Cell(
-                    cellX, 
-                    cellY,
-                    block
-                )
+            self.cells[row][col] = Cell(
+                cellX, 
+                cellY,
+                block
+            )
         end
     end
 end
@@ -92,6 +91,10 @@ function Chunk:mousepressed(x, y, button)
     self:calculateVisibleCells(function (cell)
         cell:mousepressed(x, y, button)
     end)
+end
+
+function Chunk:mousemoved(x, y)
+    
 end
 
 ---Calculates visible cells and applies a function to each one.

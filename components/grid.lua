@@ -25,6 +25,21 @@ function Grid:generate()
             )
         end
     end
+
+    -- 2 step / Cells configuration
+    for row = 0, G.WORLD.CHUNK_COUNT_X - 1 do
+        for col = 0, G.WORLD.CHUNK_COUNT_Y - 1 do
+            local chunk = self.chunks[row][col]
+
+            for cells_row = 0, G.WORLD.BLOCKS_PER_CHUNK_X - 1 do
+                for cells_col = 0, G.WORLD.BLOCKS_PER_CHUNK_Y - 1 do
+                    local cell = chunk.cells[cells_row][cells_col]
+
+                    cell:calculateView();
+                end
+            end            
+        end
+    end
 end
 
 function Grid:update(dt)
@@ -47,6 +62,20 @@ end
 function Grid:mousepressed(x, y, button)
     self:calculateVisibleChunk(function (chunk)
         chunk:mousepressed(x, y, button)
+    end)
+
+    if button == 3 then
+        local cell = self:getCell(x, y, true)
+
+        if cell then
+            cell:calculateView()
+        end
+    end
+end
+
+function Grid:mousemoved(x, y)
+    self:calculateVisibleChunk(function (chunk)
+        chunk:mousemoved(x, y)
     end)
 end
 
@@ -71,4 +100,34 @@ function Grid:calculateVisibleChunk(func)
             end
         end
     end
+end
+
+---Get cell from global or camera prospect coords
+---@param x number
+---@param y number
+---@param cameraView boolean True when from camera prospect, False when from global worlds prospect
+---@return Cell | nil
+function Grid:getCell(x, y, cameraView)
+    local xGlobal, yGlobal = x, y
+
+    if cameraView then
+        xGlobal, yGlobal = G.cam:toWorld(x, y)
+    end
+
+    local xBlockRelative, yBlockRelative = 
+        math.floor(xGlobal / G.WORLD.BLOCK_PIXEL_SIZE), 
+        math.floor(yGlobal / G.WORLD.BLOCK_PIXEL_SIZE)
+
+    local chunkX, chunkY = 
+        math.floor(xBlockRelative / G.WORLD.BLOCKS_PER_CHUNK_X), 
+        math.floor(yBlockRelative / G.WORLD.BLOCKS_PER_CHUNK_Y)
+
+    local chunkCellX, chunkCellY = 
+        xBlockRelative % G.WORLD.BLOCKS_PER_CHUNK_X,
+        yBlockRelative % G.WORLD.BLOCKS_PER_CHUNK_Y
+
+    local chunk = self.chunks[chunkX][chunkY]
+    local cell = chunk and chunk.cells and chunk.cells[chunkCellX] and chunk.cells[chunkCellX][chunkCellY] or nil
+
+    return cell
 end
