@@ -14,10 +14,6 @@ function Player:init()
     self.BUILD_ACTION_RADIUS = 10 * G.WORLD.BLOCK_PIXEL_SIZE
 
     self._localPos = { x = 0, y = 0 }
-
-    if getmetatable(self) == Player then
-        table.insert(G.I.PLAYER, self);
-    end
 end
 
 function Player:draw()
@@ -27,17 +23,6 @@ function Player:draw()
         love.graphics.print("[GLOBAL]: " .. Utils.trunc(self.T.x) .. " | " .. Utils.trunc(self.T.y), self.T.x, self.T.y + self.T.h + 10) 
         love.graphics.print("[LOCAL]: " .. self._localPos.x .. " | " .. self._localPos.y, self.T.x, self.T.y + self.T.h + 25) 
     end
-end
-
-function Player:remove()
-    for k, v in pairs(G.I.PLAYER) do
-        if v == self then
-            table.remove(G.I.PLAYER, v)
-            break
-        end
-    end
-
-    Node.remove(self); -- extend class, do not forget to change
 end
 
 function Player:handleMovement(dt)

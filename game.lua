@@ -31,21 +31,9 @@ end
 function Game:draw()
     self.cam:draw(
         function(l, t, w, h)
-            self:draw_background(l, t, w, h);
-            self.grid:draw();
-
-            local drawOrder = { 
-                G.I.NODE, 
-                G.I.SPRITE, 
-                -- G.I.BLOCK, 
-                G.I.PLAYER
-            }
-
-            for _, instances in ipairs(drawOrder) do
-                for _, v in pairs(instances) do
-                    v:draw()
-                end
-            end
+            self:draw_background(l, t, w, h)
+            self.grid:draw()
+            self.player:draw()
         end
     )
 

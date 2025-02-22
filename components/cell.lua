@@ -32,10 +32,6 @@ function Cell:draw()
 end
 
 function Cell:removeBlock()
-    if self.block then
-        self.block:remove()
-    end
-
     self.block = nil
 end
 

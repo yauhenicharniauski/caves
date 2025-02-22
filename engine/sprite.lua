@@ -31,26 +31,10 @@ function Sprite:init(T, atlas, sprite_size, sprite_pos)
         sx = self.T.w / sprite_size.w,
         sy = self.T.h / sprite_size.h
     }
-
-
-    if getmetatable(self) == Sprite then
-        table.insert(G.I.SPRITE, self);
-    end
 end
 
 function Sprite:draw()
     love.graphics.draw(self.atlas, self.sprite, self.T.x, self.T.y, 0, self.sprite_meta.sx, self.sprite_meta.sy)
-end
-
-function Sprite:remove()
-    for k, v in pairs(G.I.SPRITE) do
-        if v == self then
-            table.remove(G.I.SPRITE, v)
-            break
-        end
-    end
-
-    Node.remove(self);
 end
 
 function Sprite:updateSprite(sprite_pos)

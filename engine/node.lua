@@ -23,15 +23,6 @@ function Node:init(args)
 
     self.T.xCenter = self.T.x + self.T.w / 2
     self.T.yCenter = self.T.y + self.T.h / 2
-
-    self.states = {
-        visible = true,
-        click = { can = false, is = false }
-    }
-
-    if getmetatable(self) == Node then
-        table.insert(G.I.NODE, self);
-    end
 end
 
 -- Used only for debugging
@@ -57,13 +48,4 @@ end
 
 function Node:draw(debugColor, debugBorderWidth)
     self:draw_boundingrect(debugColor, debugBorderWidth);
-end
-
-function Node:remove()
-    for k, v in pairs(G.I.NODE) do
-        if v == self then
-            table.remove(G.I.NODE, v)
-            break
-        end
-    end
 end
