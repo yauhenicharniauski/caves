@@ -34,7 +34,16 @@ function Sprite:init(T, atlas, sprite_size, sprite_pos)
 end
 
 function Sprite:draw()
-    love.graphics.draw(self.atlas, self.sprite, self.T.x, self.T.y, 0, self.sprite_meta.sx, self.sprite_meta.sy)
+    love.graphics.draw(
+        self.atlas, 
+        self.sprite, 
+        self.T.x, 
+        self.T.y, 
+        0, 
+        -- scale origin x1.01 to prevent lines between quads (ISSUE#1)
+        self.sprite_meta.sx * 1.01,
+        self.sprite_meta.sy * 1.01
+    )
 end
 
 function Sprite:updateSprite(sprite_pos)
