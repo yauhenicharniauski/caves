@@ -45,10 +45,28 @@ function Game:init()
     _G.G = self;
 
     self:set_globals();
+
+    self.dayNight = love.graphics.newShader("shaders/daynight.glsl")
 end
 
 function Game:start_up()
     camera_init(self)
+
+    self.sceneCanvas = love.graphics.newCanvas(love.graphics.getWidth(), love.graphics.getHeight())
+
+    self.dayNight:send("colDay",   {1.00, 1.00, 1.00})
+    self.dayNight:send("colDusk",  {1.05, 0.85, 0.80})
+    self.dayNight:send("colNight", {0.65, 0.75, 1.10})
+    
+    -- summer time
+    -- if time01 = 0..1 = 24, then:
+    -- 5AM  = 5 / 24 = 0.208
+    -- 8PM  = 20 / 24 = 0.833
+    self.dayNight:send("dawn", 0.21)
+    self.dayNight:send("dusk", 0.83)
+
+    self.timeSec = 0
+    self.dayLength = 15
 
     self.grid = Grid()
     self.grid:generate()
@@ -59,21 +77,33 @@ end
 function Game:update(dt)
     G.DEBUG_F3_TABLE = {}
     G.DEBUG_F3_TABLE[G.DEBUG_F3_ENUM.FPS] = I18n.t("debug.fps", { count = love.timer.getFPS() })
+    G.DEBUG_F3_TABLE[G.DEBUG_F3_ENUM.TIME] = I18n.t("debug.time", { time = self:getFormattedTime() })
 
     self.grid:update(dt)
 
     self.player:handleMovement(dt)
     self.cam:lookAt(self.player)
+
+    self.timeSec = (self.timeSec + dt) % self.dayLength
+    self.dayNight:send("time01", self.timeSec / self.dayLength)
 end
 
 function Game:draw()
-    self.cam:draw(
-        function(l, t, w, h)
-            self:draw_background(l, t, w, h)
-            self.grid:draw()
-            self.player:draw()
-        end
-    )
+    love.graphics.setCanvas(self.sceneCanvas)
+    love.graphics.clear(0,0,0,0)
+
+    self.cam:draw(function(l, t, w, h)
+        self:draw_background(l, t, w, h)
+        love.graphics.setColor(1,1,1,1)
+        self.grid:draw()
+        self.player:draw()
+    end)
+
+    love.graphics.setCanvas()
+
+    love.graphics.setShader(self.dayNight)
+    love.graphics.draw(self.sceneCanvas, 0, 0)
+    love.graphics.setShader()
 
     drawDebugTable(G.DEBUG_F3_ENABLED)
 end
@@ -132,4 +162,23 @@ function Game:handle_zoom(dy)
             end
         end
     end
+end
+
+function Game:getFormattedTime()
+    local normalized = self.timeSec / self.dayLength
+    local totalMinutes = normalized * 24 * 60
+    local hour = math.floor(totalMinutes / 60)
+    local minute = math.floor(totalMinutes % 60)
+
+    local suffix = "AM"
+    if hour >= 12 then
+        suffix = "PM"
+    end
+
+    local displayHour = hour % 12
+    if displayHour == 0 then
+        displayHour = 12
+    end
+
+    return string.format("%02d:%02d %s", displayHour, minute, suffix)
 end

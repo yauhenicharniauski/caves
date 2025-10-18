@@ -15,6 +15,7 @@ function Game:set_globals()
     self.DEBUG_F3_ENABLED = false
     self.DEBUG_F3_ENUM = {
         FPS = "fps",
+        TIME = "time",
         DRAW_CALLS = "draw_calls",
         VISIBLE_CHUNKS = "visible_chunks",
         DRAW_CALLS_BATCHED = "draw_calls_batched",
@@ -25,6 +26,7 @@ function Game:set_globals()
     }
     self.DEBUG_F3_TABLE_ORDER = {
         self.DEBUG_F3_ENUM.FPS,
+        self.DEBUG_F3_ENUM.TIME,
         self.DEBUG_F3_ENUM.PLAYER_POS,
         self.DEBUG_F3_ENUM.SKIP_LINE,
 
