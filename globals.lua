@@ -66,50 +66,6 @@ function Game:set_globals()
             v.ATLAS_LOADED = love.graphics.newImage(v.ATLAS)
         end
     end
-
-    --------------------------
-    --     BIT-MAP FONTS    --
-    --------------------------
-    
-    self.FONT = {
-        [self.ENUMS.AVAILABLE_LANGUAGES.ENGLISH] = {
-            ATLAS = love.graphics.newImage("textures/fonts/en-uppercase.png"),
-            LETTER_WIDTH = 7,
-            LETTER_HEIGHT = 8,
-            LETTERS = {
-                ['A'] = { POS_X = 0, POS_Y = 0 },
-                ['B'] = { POS_X = 1, POS_Y = 0 },
-                ['C'] = { POS_X = 2, POS_Y = 0 },
-                ['D'] = { POS_X = 3, POS_Y = 0 },
-                ['E'] = { POS_X = 4, POS_Y = 0 },
-                ['F'] = { POS_X = 5, POS_Y = 0 },
-                ['G'] = { POS_X = 6, POS_Y = 0 },
-                ['H'] = { POS_X = 0, POS_Y = 1 },
-                ['I'] = { POS_X = 1, POS_Y = 1 },
-                ['J'] = { POS_X = 2, POS_Y = 1 },
-                ['K'] = { POS_X = 3, POS_Y = 1 },
-                ['L'] = { POS_X = 4, POS_Y = 1 },
-                ['M'] = { POS_X = 5, POS_Y = 1 },
-                ['N'] = { POS_X = 6, POS_Y = 1 },
-                ['O'] = { POS_X = 0, POS_Y = 2 },
-                ['P'] = { POS_X = 1, POS_Y = 2 },
-                ['Q'] = { POS_X = 2, POS_Y = 2 },
-                ['R'] = { POS_X = 3, POS_Y = 2 },
-                ['S'] = { POS_X = 4, POS_Y = 2 },
-                ['T'] = { POS_X = 5, POS_Y = 2 },
-                ['U'] = { POS_X = 6, POS_Y = 2 },
-                ['V'] = { POS_X = 0, POS_Y = 3 },
-                ['W'] = { POS_X = 1, POS_Y = 3 },
-                ['X'] = { POS_X = 2, POS_Y = 3 },
-                ['Y'] = { POS_X = 3, POS_Y = 3 },
-                ['Z'] = { POS_X = 4, POS_Y = 3 },
-            }
-        }
-    }
-
-    -- Hello World
-    -- H -> self.FONT[self.CURRENT_LANG].LETTERS
-    --------------------------
     
     self.CURSORS = {
         REGULAR = love.mouse.getSystemCursor("crosshair"),
