@@ -1,4 +1,3 @@
----@class Sprite
 Sprite = Node:extend();
 
 -- Class for drawing sprites. For now this is just a Node, with an image above it.

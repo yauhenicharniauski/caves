@@ -1,4 +1,3 @@
----@class Player
 Player = Node:extend() -- should be Moveable or smth like this in future
 
 function Player:init()

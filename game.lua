@@ -7,10 +7,10 @@ local function drawDebugTable(enabled)
 
     local stats = love.graphics.getStats()
 
-    G.DEBUG_F3_TABLE[G.DEBUG_F3_ENUM.TEXTURE_MEM_USAGE] = G.i18n.t("debug.texture_mem_usage", { count = string.format("%.4f", stats.texturememory / 1024 / 1024) })
-    G.DEBUG_F3_TABLE[G.DEBUG_F3_ENUM.DRAW_CALLS] = G.i18n.t("debug.draw_calls", { count = stats.drawcalls })
-    G.DEBUG_F3_TABLE[G.DEBUG_F3_ENUM.DRAW_CALLS_BATCHED] = G.i18n.t("debug.draw_calls_batched", { count = stats.drawcallsbatched })
-    G.DEBUG_F3_TABLE[G.DEBUG_F3_ENUM.IMAGES_LOADED] = G.i18n.t("debug.images_loaded", { count = stats.images })
+    G.DEBUG_F3_TABLE[G.DEBUG_F3_ENUM.TEXTURE_MEM_USAGE] = I18n.t("debug.texture_mem_usage", { count = string.format("%.4f", stats.texturememory / 1024 / 1024) })
+    G.DEBUG_F3_TABLE[G.DEBUG_F3_ENUM.DRAW_CALLS] = I18n.t("debug.draw_calls", { count = stats.drawcalls })
+    G.DEBUG_F3_TABLE[G.DEBUG_F3_ENUM.DRAW_CALLS_BATCHED] = I18n.t("debug.draw_calls_batched", { count = stats.drawcallsbatched })
+    G.DEBUG_F3_TABLE[G.DEBUG_F3_ENUM.IMAGES_LOADED] = I18n.t("debug.images_loaded", { count = stats.images })
     
     love.graphics.push()
         local index = 0
@@ -25,9 +25,21 @@ local function drawDebugTable(enabled)
     love.graphics.pop()
 end
 
--- # Game class
+local function camera_init(scene)
+    local width, height = love.graphics.getDimensions()
 
-Game = Object:extend();
+    local scaleX = width / G.CAMERA.VIRTUAL_WIDTH
+    local scaleY = height / G.CAMERA.VIRTUAL_HEIGHT
+    local scaleFactor = math.min(scaleX, scaleY)
+
+    scene.cam = gamera.new(0, 0, G.WORLD_WIDTH, G.WORLD_HEIGHT)
+
+    scene.CAMERA.SCALE_FACTOR = scaleFactor
+    scene.cam:setScale(scaleFactor)
+end
+
+--
+Game = class();
 
 function Game:init()
     _G.G = self;
@@ -36,7 +48,7 @@ function Game:init()
 end
 
 function Game:start_up()
-    self:camera_init()
+    camera_init(self)
 
     self.grid = Grid()
     self.grid:generate()
@@ -46,7 +58,7 @@ end
 
 function Game:update(dt)
     G.DEBUG_F3_TABLE = {}
-    G.DEBUG_F3_TABLE[G.DEBUG_F3_ENUM.FPS] = G.i18n.t("debug.fps", { count = love.timer.getFPS() })
+    G.DEBUG_F3_TABLE[G.DEBUG_F3_ENUM.FPS] = I18n.t("debug.fps", { count = love.timer.getFPS() })
 
     self.grid:update(dt)
 
@@ -95,19 +107,6 @@ function Game:draw_background(l, t, w, h)
         love.graphics.rectangle('fill', l, t, w, h)
         love.graphics.setColor(1, 1, 1, 1)
     love.graphics.pop()
-end
-
-function Game:camera_init()
-    local width, height = love.graphics.getDimensions()
-
-    local scaleX = width / G.CAMERA.VIRTUAL_WIDTH
-    local scaleY = height / G.CAMERA.VIRTUAL_HEIGHT
-    local scaleFactor = math.min(scaleX, scaleY)
-
-    self.cam = gamera.new(0, 0, G.WORLD_WIDTH, G.WORLD_HEIGHT)
-
-    self.CAMERA.SCALE_FACTOR = scaleFactor
-    self.cam:setScale(scaleFactor)
 end
 
 function Game:handle_zoom(dy)

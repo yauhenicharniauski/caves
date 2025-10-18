@@ -1,6 +1,5 @@
 require "components/cell"
 
----@class Chunk
 Chunk = Node:extend();
 
 local function terrainHeight(x)

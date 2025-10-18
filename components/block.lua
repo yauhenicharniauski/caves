@@ -1,4 +1,3 @@
----@class Block
 Block = Sprite:extend();
 
 function Block:init(xChunkRelative, yChunkRelative, block, view)

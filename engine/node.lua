@@ -1,5 +1,4 @@
----@class Node
-Node = Object:extend();
+Node = class() 
 
 -- Node represent any game object that needs to have some transform available in the game itself
 -- Everything that you see in the game is a Node

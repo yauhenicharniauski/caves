@@ -1,4 +1,3 @@
----@class Cell
 Cell = Node:extend();
 
 function Cell:init(xChunkRelative, yChunkRelative, block)

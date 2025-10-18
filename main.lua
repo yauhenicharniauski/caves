@@ -1,13 +1,18 @@
+require "engine.class"
 require "utils"
 
-require "engine/object"
 require "engine/node"
 require "engine/sprite"
+require "scenes.scene"
 require "components/block"
 require "components/grid"
 require "components/player"
 require "game"
 require "globals"
+
+I18n = require("locales")
+I18n.fallback = "en"
+I18n.setLocale("en")
 
 local font = love.graphics.newFont("assets/fonts/Tiny5-Regular.ttf", 16)
 

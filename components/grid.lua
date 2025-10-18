@@ -1,6 +1,5 @@
 require "components/chunk"
 
----@class Grid
 Grid = Node:extend()
 
 function Grid:init()
@@ -50,7 +49,7 @@ function Grid:update(dt)
         visibleChunks = visibleChunks + 1
     end)
 
-    G.DEBUG_F3_TABLE[G.DEBUG_F3_ENUM.VISIBLE_CHUNKS] = G.i18n.t("debug.visible_chunks", { count = visibleChunks })
+    G.DEBUG_F3_TABLE[G.DEBUG_F3_ENUM.VISIBLE_CHUNKS] = I18n.t("debug.visible_chunks", { count = visibleChunks })
 end
 
 function Grid:draw()

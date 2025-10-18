@@ -1,10 +1,6 @@
 _G.VERSION = '0.0.0'
 
 function Game:set_globals()
-    self.i18n = require("locales")
-    self.i18n.fallback = "en"
-    self.i18n.setLocale("en")
-
     self.ENUMS = {
         BLOCKS = {
             DIRT = "DIRT"

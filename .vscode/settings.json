@@ -6,5 +6,8 @@
     "Lua.diagnostics.disable": [
         "param-type-mismatch",
         "undefined-field"
+    ],
+    "Lua.diagnostics.globals": [
+        "class"
     ]
 }
