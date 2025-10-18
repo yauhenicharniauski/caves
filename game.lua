@@ -1,5 +1,32 @@
 local gamera = require "libs/gamera"
 
+-- # Local helpers
+
+local function drawDebugTable(enabled)
+    if not enabled then return end
+
+    local stats = love.graphics.getStats()
+
+    G.DEBUG_F3_TABLE[G.DEBUG_F3_ENUM.TEXTURE_MEM_USAGE] = G.i18n.t("debug.texture_mem_usage", { count = string.format("%.4f", stats.texturememory / 1024 / 1024) })
+    G.DEBUG_F3_TABLE[G.DEBUG_F3_ENUM.DRAW_CALLS] = G.i18n.t("debug.draw_calls", { count = stats.drawcalls })
+    G.DEBUG_F3_TABLE[G.DEBUG_F3_ENUM.DRAW_CALLS_BATCHED] = G.i18n.t("debug.draw_calls_batched", { count = stats.drawcallsbatched })
+    G.DEBUG_F3_TABLE[G.DEBUG_F3_ENUM.IMAGES_LOADED] = G.i18n.t("debug.images_loaded", { count = stats.images })
+    
+    love.graphics.push()
+        local index = 0
+        for _, key in ipairs(G.DEBUG_F3_TABLE_ORDER) do
+            if G.DEBUG_F3_TABLE[key] then
+                love.graphics.print(G.DEBUG_F3_TABLE[key], 10, 10 + 20 * index)
+            elseif key ~= G.DEBUG_F3_ENUM.SKIP_LINE then
+                love.graphics.print(key .. ": --", 10, 10 + 20 * index)
+            end
+            index = index + 1
+        end
+    love.graphics.pop()
+end
+
+-- # Game class
+
 Game = Object:extend();
 
 function Game:init()
@@ -18,9 +45,8 @@ function Game:start_up()
 end
 
 function Game:update(dt)
-    G.DEBUG_VALUES = {}
-    
-    G.DEBUG_VALUES["FPS"] = love.timer.getFPS()
+    G.DEBUG_F3_TABLE = {}
+    G.DEBUG_F3_TABLE[G.DEBUG_F3_ENUM.FPS] = G.i18n.t("debug.fps", { count = love.timer.getFPS() })
 
     self.grid:update(dt)
 
@@ -37,25 +63,16 @@ function Game:draw()
         end
     )
 
-    local stats = love.graphics.getStats()
-
-    G.DEBUG_VALUES["TEXTURE_MEM_USED (MB)"] = stats.texturememory / 1024 / 1024
-    G.DEBUG_VALUES["DRAW CALLS"] = stats.drawcalls
-    G.DEBUG_VALUES["DRAWCALLS_BATCHED"] = stats.drawcallsbatched
-    G.DEBUG_VALUES["IMAGES_LOADED"] = stats.images
-
-    love.graphics.push()
-        local index = 0
-        for key, debug_value in pairs(G.DEBUG_VALUES) do
-            love.graphics.print(key .. ": " .. debug_value, 10, 10 + 20 * index)
-            index = index + 1
-        end
-    love.graphics.pop()
+    drawDebugTable(G.DEBUG_F3_ENABLED)
 end
 
 function Game:keypressed(key, scancode, isrepeat)
     if key == "escape" then
         love.event.quit()
+    end
+
+    if key == "f3" then
+        G.DEBUG_F3_ENABLED = not G.DEBUG_F3_ENABLED
     end
 end
 
@@ -115,7 +132,5 @@ function Game:handle_zoom(dy)
                 self.cam:setScale(newScale)
             end
         end
-
-        G.DEBUG_VALUES["SCALE"] = self.cam:getScale()
     end
 end

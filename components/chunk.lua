@@ -80,7 +80,9 @@ function Chunk:update(dt)
 end
 
 function Chunk:draw()
-    Node.draw(self, { 0, 1, 0, 0.2 }, 5)
+    if G.DEBUG_F3_ENABLED then
+        Node.draw(self, { 1, 0, 0, 0.4 }, 5)    
+    end
 
     self:calculateVisibleCells(function (cell)
         cell:draw()

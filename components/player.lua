@@ -19,10 +19,7 @@ end
 function Player:draw()
     Node.draw(self, { 0.75, 0.25, 0.75, 1 }, 5);
 
-    if G.DEBUG and G.DEBUG_FEATURES.PLAYER then
-        love.graphics.print("[GLOBAL]: " .. Utils.trunc(self.T.x) .. " | " .. Utils.trunc(self.T.y), self.T.x, self.T.y + self.T.h + 10) 
-        love.graphics.print("[LOCAL]: " .. self._localPos.x .. " | " .. self._localPos.y, self.T.x, self.T.y + self.T.h + 25) 
-    end
+    G.DEBUG_F3_TABLE[G.DEBUG_F3_ENUM.PLAYER_POS] = "X: " .. self._localPos.x .. ", Y: " .. self._localPos.y
 end
 
 function Player:handleMovement(dt)

@@ -50,7 +50,7 @@ function Grid:update(dt)
         visibleChunks = visibleChunks + 1
     end)
 
-    G.DEBUG_VALUES["VISIBLE_CHUNKS"] = visibleChunks
+    G.DEBUG_F3_TABLE[G.DEBUG_F3_ENUM.VISIBLE_CHUNKS] = G.i18n.t("debug.visible_chunks", { count = visibleChunks })
 end
 
 function Grid:draw()

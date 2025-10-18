@@ -9,7 +9,10 @@ require "components/player"
 require "game"
 require "globals"
 
+local font = love.graphics.newFont("assets/fonts/Tiny5-Regular.ttf", 16)
+
 function love.load()
+    love.graphics.setFont(font)
     love.window.setMode(1280, 720, { display = 1, fullscreen = false })
     
     G:start_up();

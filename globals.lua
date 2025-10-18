@@ -1,10 +1,11 @@
 _G.VERSION = '0.0.0'
 
 function Game:set_globals()
+    self.i18n = require("locales")
+    self.i18n.fallback = "en"
+    self.i18n.setLocale("en")
+
     self.ENUMS = {
-        AVAILABLE_LANGUAGES = {
-            ENGLISH = "ENGLISH",  
-        },
         BLOCKS = {
             DIRT = "DIRT"
         }
@@ -12,14 +13,36 @@ function Game:set_globals()
 
     self.VERSION = VERSION
     self.SEED = 1234
-    self.CURRENT_LANG = self.ENUMS.AVAILABLE_LANGUAGES.ENGLISH
     
-    self.DEBUG = true
-    self.DEBUG_FEATURES = {
-        GRID = false, 
-        PLAYER = true,
-        FPS_COUNTER = true
+    self.DEBUG = true -- enables hot reload when running
+    -- Debug info table (F3)
+    self.DEBUG_F3_ENABLED = false
+    self.DEBUG_F3_ENUM = {
+        FPS = "fps",
+        DRAW_CALLS = "draw_calls",
+        VISIBLE_CHUNKS = "visible_chunks",
+        DRAW_CALLS_BATCHED = "draw_calls_batched",
+        IMAGES_LOADED = "images_loaded",
+        TEXTURE_MEM_USAGE = "texture_mem_usage",
+        PLAYER_POS = "player_pos",
+        SKIP_LINE = "-"
     }
+    self.DEBUG_F3_TABLE_ORDER = {
+        self.DEBUG_F3_ENUM.FPS,
+        self.DEBUG_F3_ENUM.PLAYER_POS,
+        self.DEBUG_F3_ENUM.SKIP_LINE,
+
+        self.DEBUG_F3_ENUM.DRAW_CALLS,
+        self.DEBUG_F3_ENUM.DRAW_CALLS_BATCHED,
+        self.DEBUG_F3_ENUM.SKIP_LINE,
+
+        self.DEBUG_F3_ENUM.VISIBLE_CHUNKS,
+        self.DEBUG_F3_ENUM.SKIP_LINE,
+
+        self.DEBUG_F3_ENUM.IMAGES_LOADED,
+        self.DEBUG_F3_ENUM.TEXTURE_MEM_USAGE,
+    }
+    self.DEBUG_F3_TABLE = {}
 
     --------------------------
     --      TEXTURES        --
@@ -91,9 +114,6 @@ function Game:set_globals()
 
     self.WORLD_WIDTH = self.WORLD.CHUNK_COUNT_X * self.WORLD.BLOCKS_PER_CHUNK_X * self.WORLD.BLOCK_PIXEL_SIZE
     self.WORLD_HEIGHT = self.WORLD.CHUNK_COUNT_Y * self.WORLD.BLOCKS_PER_CHUNK_Y * self.WORLD.BLOCK_PIXEL_SIZE
-
-    -- dynamic debug values
-    self.DEBUG_VALUES = {}
 end
 
 _G.G = Game();
