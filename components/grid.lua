@@ -1,5 +1,6 @@
 require "components/chunk"
 
+---@class Grid
 Grid = Node:extend()
 
 function Grid:init()
@@ -129,4 +130,9 @@ function Grid:getCell(x, y, cameraView)
     local cell = chunk and chunk.cells and chunk.cells[chunkCellX] and chunk.cells[chunkCellX][chunkCellY] or nil
 
     return cell
+end
+
+function Grid:isSolid(tx, ty)
+  local cell = self:getCell(tx, ty, false)
+  return cell ~= nil and cell.block ~= nil and cell.block:isSolid()
 end

@@ -1,5 +1,6 @@
 require "components/cell"
 
+---@class Chunk
 Chunk = Node:extend();
 
 local function terrainHeight(x)
@@ -61,7 +62,7 @@ function Chunk:init(xGridRelative, yGridRelative)
             local cellX = row + xGridRelative * G.WORLD.BLOCKS_PER_CHUNK_X
             local cellY = col + yGridRelative * G.WORLD.BLOCKS_PER_CHUNK_Y
 
-            local block = shouldPlaceBlock(cellX, cellY) and Block(cellX, cellY, G.ENUMS.BLOCKS.DIRT, 2) or nil
+            local block = shouldPlaceBlock(cellX, cellY) and Block(cellX, cellY, G.BlockRegistry.ENUM.DIRT, 2) or nil
 
             self.cells[row][col] = Cell(
                 cellX, 

@@ -4,7 +4,7 @@ function Player:init()
     Node.init(self, { 
         T = { 
             x = (G.WORLD_WIDTH) / 2, 
-            y = (G.WORLD_HEIGHT) / 2, 
+            y = 100, 
             w = 50, h = 100 
         } 
     })
@@ -13,12 +13,13 @@ function Player:init()
     self.BUILD_ACTION_RADIUS = 10 * G.WORLD.BLOCK_PIXEL_SIZE
 
     self._localPos = { x = 0, y = 0 }
+    self.isSolid = false
 end
 
 function Player:draw()
     Node.draw(self, { 0.75, 0.25, 0.75, 1 }, 5);
 
-    G.DEBUG_F3_TABLE[G.DEBUG_F3_ENUM.PLAYER_POS] = "X: " .. self._localPos.x .. ", Y: " .. self._localPos.y
+    G.DEBUG_F3_TABLE[G.DEBUG_F3_ENUM.PLAYER_POS] = "X: " .. self._localPos.x .. ", Y: " .. self._localPos.y .. " is solid " .. tostring(self.isSolid)
 end
 
 function Player:handleMovement(dt)

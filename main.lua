@@ -1,14 +1,15 @@
 require "engine.class"
 require "utils"
-
 require "engine/node"
 require "engine/sprite"
+
 require "scenes.scene"
+
 require "components/block"
 require "components/grid"
 require "components/player"
 require "game"
-require "globals"
+require "globals"   
 
 I18n = require("locales")
 I18n.fallback = "en"
@@ -20,7 +21,8 @@ function love.load()
     love.graphics.setFont(font)
     love.window.setMode(1280, 720, { display = 1, fullscreen = false })
     
-    G:start_up();
+    G = Game()
+    G:start_up()
 end
 
 function love.update(dt)

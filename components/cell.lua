@@ -1,5 +1,7 @@
+---@class Cell
 Cell = Node:extend();
 
+---@param block Block
 function Cell:init(xChunkRelative, yChunkRelative, block)
     Node.init(self, { T = { 
                 x = xChunkRelative * G.WORLD.BLOCK_PIXEL_SIZE, 
@@ -54,7 +56,7 @@ function Cell:mousepressed(x, y, button)
                 if self.block then
                     self.block:nextView()
                 else 
-                    local block = Block(self._chunk_x, self._chunk_y, G.ENUMS.BLOCKS.DIRT, 2)
+                    local block = Block(self._chunk_x, self._chunk_y, G.BlockRegistry.ENUM.DIRT, 2)
     
                     self:setBlock(block)
                 end

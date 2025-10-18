@@ -1,6 +1,13 @@
+---@class Block
 Block = Sprite:extend();
 
+---@param xChunkRelative number
+---@param yChunkRelative number
+---@param block string -- block ID from BlockRegistry
+---@param view integer
 function Block:init(xChunkRelative, yChunkRelative, block, view)
+    self.settings = G.BlockRegistry:getBlock(block)
+
     Sprite.init(
         self,
         { 
@@ -9,13 +16,12 @@ function Block:init(xChunkRelative, yChunkRelative, block, view)
             w = G.WORLD.BLOCK_PIXEL_SIZE,
             h = G.WORLD.BLOCK_PIXEL_SIZE
         },
-        G.TEXTURES[block].ATLAS_LOADED,
-        G.TEXTURES[block].SPRITE_SIZE,
-        G.TEXTURES[block].VIEWS[view]
+        self.settings.texture.atlas_loaded,
+        self.settings.texture.sprite_size,
+        self.settings.texture.views[view]
     )
 
     self.currentView = view
-    self.blockType = block
 end
 
 function Block:draw()
@@ -23,13 +29,17 @@ function Block:draw()
 end
 
 function Block:updateView(view)
-    if G.TEXTURES[self.blockType].VIEWS[view] then
-        Sprite.updateSprite(self, G.TEXTURES[self.blockType].VIEWS[view])
+    if self.settings.texture.views[view] then
+        Sprite.updateSprite(self, self.settings.texture.views[view])
     end
 end
 
 function Block:nextView()
-    local nextViewID = self.currentView + 1 > #G.TEXTURES[self.blockType].VIEWS and 1 or self.currentView + 1
+    local nextViewID = self.currentView + 1 > #self.settings.texture.views and 1 or self.currentView + 1
     self.currentView = nextViewID
-    Sprite.updateSprite(self, G.TEXTURES[self.blockType].VIEWS[nextViewID])
+    Sprite.updateSprite(self, self.settings.texture.views[nextViewID])
+end
+
+function Block:isSolid()
+    return self.settings.isSolid or false
 end

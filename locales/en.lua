@@ -1,6 +1,7 @@
 return {
     debug = {
         images_loaded = "IMAGES LOADED: {count}",
+        canvases_loaded = "CANVASES LOADED: {count}",
         draw_calls = "DRAW CALLS: {count}",
         fps = "FPS: {count}",
         visible_chunks = "VISIBLE CHUNKS: {count}",

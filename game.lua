@@ -1,4 +1,5 @@
 local gamera = require "libs/gamera"
+require "components.block_registry"
 
 -- # Local helpers
 
@@ -11,6 +12,7 @@ local function drawDebugTable(enabled)
     G.DEBUG_F3_TABLE[G.DEBUG_F3_ENUM.DRAW_CALLS] = I18n.t("debug.draw_calls", { count = stats.drawcalls })
     G.DEBUG_F3_TABLE[G.DEBUG_F3_ENUM.DRAW_CALLS_BATCHED] = I18n.t("debug.draw_calls_batched", { count = stats.drawcallsbatched })
     G.DEBUG_F3_TABLE[G.DEBUG_F3_ENUM.IMAGES_LOADED] = I18n.t("debug.images_loaded", { count = stats.images })
+    G.DEBUG_F3_TABLE[G.DEBUG_F3_ENUM.CANVASES_LOADED] = I18n.t("debug.canvases_loaded", { count = stats.canvases })
     
     love.graphics.push()
         local index = 0
@@ -47,12 +49,15 @@ function Game:init()
     self:set_globals();
 
     self.dayNight = love.graphics.newShader("shaders/daynight.glsl")
+    self.sceneCanvas = love.graphics.newCanvas(love.graphics.getWidth(), love.graphics.getHeight())
 end
 
 function Game:start_up()
-    camera_init(self)
+    self:registerBlocks();
+    self:loadTextures();
 
-    self.sceneCanvas = love.graphics.newCanvas(love.graphics.getWidth(), love.graphics.getHeight())
+    self.timeSec = G.WORLD.START_GAME_TIME
+    self.dayLength = G.WORLD.DAY_LENGTH
 
     self.dayNight:send("colDay",   {1.00, 1.00, 1.00})
     self.dayNight:send("colDusk",  {1.05, 0.85, 0.80})
@@ -61,13 +66,12 @@ function Game:start_up()
     self.dayNight:send("dawn", G.WORLD.DAY_START)
     self.dayNight:send("dusk", G.WORLD.NIGHT_START)
 
-    self.timeSec = 0
-    self.dayLength = G.WORLD.DAY_LENGTH
-
     self.grid = Grid()
     self.grid:generate()
 
     self.player = Player()
+
+    camera_init(self)
 end
 
 function Game:update(dt)
@@ -177,4 +181,43 @@ function Game:getFormattedTime()
     end
 
     return string.format("%02d:%02d %s", displayHour, minute, suffix)
+end
+
+function Game:registerBlocks()
+    ---@type BlockRegistry
+    self.BlockRegistry = BlockRegistry()
+
+    self.BlockRegistry:register("DIRT", {
+        isSolid = true,
+        texture = {
+            atlas = "textures/dirt/dirt.png",
+            atlas_loaded = nil,
+            sprite_size = {
+                w = 8,
+                h = 8,
+                p = 1
+            },
+            views = {
+                { 0, 0 },
+                { 0, 1 },
+                { 0, 2 },
+                { 0, 3 },
+                { 1, 0 },
+                { 1, 1 },
+                { 1, 2 },
+                { 1, 3 }
+            }
+        }
+    })
+end
+
+function Game:loadTextures()
+    love.graphics.setDefaultFilter("nearest", "nearest") -- Prevent blurring
+
+    -- load textures
+    for _, v in pairs(self.BlockRegistry.SETTINGS) do
+        if v.texture and not v.texture.atlas_loaded then
+            v.texture.atlas_loaded = love.graphics.newImage(v.texture.atlas)
+        end
+    end
 end
