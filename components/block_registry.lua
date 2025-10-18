@@ -11,7 +11,7 @@
 ---@field atlas string
 ---@field atlas_loaded love.Image | nil
 ---@field sprite_size BlockSpriteSize
----@field views BlockTextureView[]
+---@field views BlockTextureView[][]
 
 ---@class BlockSettings
 ---@field isSolid boolean
