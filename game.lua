@@ -58,15 +58,11 @@ function Game:start_up()
     self.dayNight:send("colDusk",  {1.05, 0.85, 0.80})
     self.dayNight:send("colNight", {0.65, 0.75, 1.10})
     
-    -- summer time
-    -- if time01 = 0..1 = 24, then:
-    -- 5AM  = 5 / 24 = 0.208
-    -- 8PM  = 20 / 24 = 0.833
-    self.dayNight:send("dawn", 0.21)
-    self.dayNight:send("dusk", 0.83)
+    self.dayNight:send("dawn", G.WORLD.DAY_START)
+    self.dayNight:send("dusk", G.WORLD.NIGHT_START)
 
     self.timeSec = 0
-    self.dayLength = 15
+    self.dayLength = G.WORLD.DAY_LENGTH
 
     self.grid = Grid()
     self.grid:generate()

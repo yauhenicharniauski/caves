@@ -107,7 +107,11 @@ function Game:set_globals()
         CHUNK_COUNT_Y = 3,
         BLOCKS_PER_CHUNK_X = 250,--140, 
         BLOCKS_PER_CHUNK_Y = 150,--80,
-        BLOCK_PIXEL_SIZE = 25
+        BLOCK_PIXEL_SIZE = 25,
+        -- summer time
+        DAY_LENGTH = 180, -- 3 minutes
+        DAY_START = 0.208, -- 5 / 24 hours
+        NIGHT_START = 0.833, -- 20 / 24 hours
     }
 
     self.WORLD_WIDTH = self.WORLD.CHUNK_COUNT_X * self.WORLD.BLOCKS_PER_CHUNK_X * self.WORLD.BLOCK_PIXEL_SIZE
